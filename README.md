@@ -18,6 +18,15 @@
 Proyecto del equipo para el **Reto 3 — Hackathon FACI 2026, Universidad Peruana Cayetano
 Heredia**.
 
+- Página del proyecto: https://ichisieben.github.io/pulso-upch/
+- Ficha técnica: [`docs/ficha-tecnica.md`](docs/ficha-tecnica.md) ·
+  PDF: [`docs/Reto3_PulsoUPCH.pdf`](docs/Reto3_PulsoUPCH.pdf) (se regenera con
+  `python tools/ficha_pdf.py`)
+
+**Resultado sobre datos sintéticos** (30 semillas por escenario): estable 30/30 y cambio aislado
+30/30 → "sin cambios relevantes"; cambio sostenido 27/30 → "cambio sostenido observado".
+Viabilidad técnica, no validez clínica.
+
 ## Qué hace
 
 Pulso UPCH mide la **dinámica** de escritura del estudiante, nunca el **contenido**:

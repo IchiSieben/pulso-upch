@@ -6,7 +6,7 @@ subtitle: "Hackathon FACI 2026 · Reto 3"
 # Ficha técnica del proyecto — Pulso UPCH
 
 **Hackathon FACI 2026 · Universidad Peruana Cayetano Heredia · Reto 3**
-Formato de entrega: Arial 11, interlineado 1.5, máximo 10 páginas. Archivo: `Reto3_PulsoUPCH.pdf`.
+Repositorio: https://github.com/IchiSieben/pulso-upch · Página: https://ichisieben.github.io/pulso-upch/
 
 > **Límite ético.** Pulso UPCH **no diagnostica depresión ni ninguna condición de salud
 > mental** y no etiqueta al usuario. Solo describe un cambio respecto al propio patrón del
@@ -107,7 +107,19 @@ en pantalla.
 - Generador sintético reproducible (semilla fija) con tres escenarios de 21 días.
 - Comportamiento esperado del detector sobre los datos sintéticos: el escenario *estable* y el
   de *cambio aislado* terminan en "sin cambios relevantes"; el de *cambio sostenido* en "cambio
-  sostenido observado". Los resultados obtenidos se reportan en `model/train_eval.py`.
+  sostenido observado".
+
+**Resultados obtenidos en el prototipo** (`model/train_eval.py`, 30 semillas por escenario):
+
+| Escenario sintético | Estado esperado | Coincide |
+|---|---|---|
+| Estable | Sin cambios relevantes | 30/30 |
+| Cambio aislado (1 día) | Sin cambios relevantes | 30/30 |
+| Cambio sostenido (5 días) | Cambio sostenido observado | 27/30 |
+
+Además, las pruebas automáticas del backend verifican que una petición con texto es rechazada
+(HTTP 422) sin escribir nada en disco, y que "borrar mis datos" elimina efectivamente el archivo
+del usuario.
 
 **Declaración de honestidad.** Estas pruebas con datos sintéticos demuestran **viabilidad
 técnica, no validez clínica ni precisión para detectar nada**. Los escenarios fueron construidos
