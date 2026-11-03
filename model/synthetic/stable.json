@@ -1,0 +1,233 @@
+[
+ {
+  "day": 1,
+  "synthetic": true,
+  "wpm": 42.002,
+  "iki_mean_ms": 288.585,
+  "iki_sd_ms": 92.807,
+  "backspace_rate": 0.053,
+  "session_s": 170.907,
+  "rest_hours": 6.704,
+  "energy_1_5": 4
+ },
+ {
+  "day": 2,
+  "synthetic": true,
+  "wpm": 44.68,
+  "iki_mean_ms": 279.094,
+  "iki_sd_ms": 90.036,
+  "backspace_rate": 0.064,
+  "session_s": 187.138,
+  "rest_hours": 7.253,
+  "energy_1_5": 4
+ },
+ {
+  "day": 3,
+  "synthetic": true,
+  "wpm": 41.941,
+  "iki_mean_ms": 293.344,
+  "iki_sd_ms": 84.246,
+  "backspace_rate": 0.056,
+  "session_s": 141.976,
+  "rest_hours": 6.555,
+  "energy_1_5": 3
+ },
+ {
+  "day": 4,
+  "synthetic": true,
+  "wpm": 41.53,
+  "iki_mean_ms": 269.791,
+  "iki_sd_ms": 97.17,
+  "backspace_rate": 0.061,
+  "session_s": 176.261,
+  "rest_hours": 5.942,
+  "energy_1_5": 4
+ },
+ {
+  "day": 5,
+  "synthetic": true,
+  "wpm": 41.903,
+  "iki_mean_ms": 286.36,
+  "iki_sd_ms": 82.759,
+  "backspace_rate": 0.056,
+  "session_s": 160.43,
+  "rest_hours": 6.796,
+  "energy_1_5": 4
+ },
+ {
+  "day": 6,
+  "synthetic": true,
+  "wpm": 40.385,
+  "iki_mean_ms": 284.61,
+  "iki_sd_ms": 102.075,
+  "backspace_rate": 0.055,
+  "session_s": 177.766,
+  "rest_hours": 7.255,
+  "energy_1_5": 4
+ },
+ {
+  "day": 7,
+  "synthetic": true,
+  "wpm": 39.55,
+  "iki_mean_ms": 285.914,
+  "iki_sd_ms": 105.871,
+  "backspace_rate": 0.048,
+  "session_s": 197.188,
+  "rest_hours": 7.26,
+  "energy_1_5": 4
+ },
+ {
+  "day": 8,
+  "synthetic": true,
+  "wpm": 46.001,
+  "iki_mean_ms": 294.147,
+  "iki_sd_ms": 85.406,
+  "backspace_rate": 0.061,
+  "session_s": 191.534,
+  "rest_hours": 7.106,
+  "energy_1_5": 4
+ },
+ {
+  "day": 9,
+  "synthetic": true,
+  "wpm": 41.867,
+  "iki_mean_ms": 293.007,
+  "iki_sd_ms": 106.508,
+  "backspace_rate": 0.055,
+  "session_s": 184.063,
+  "rest_hours": 6.968,
+  "energy_1_5": 4
+ },
+ {
+  "day": 10,
+  "synthetic": true,
+  "wpm": 39.626,
+  "iki_mean_ms": 278.048,
+  "iki_sd_ms": 93.43,
+  "backspace_rate": 0.067,
+  "session_s": 202.904,
+  "rest_hours": 6.538,
+  "energy_1_5": 4
+ },
+ {
+  "day": 11,
+  "synthetic": true,
+  "wpm": 43.294,
+  "iki_mean_ms": 261.091,
+  "iki_sd_ms": 91.295,
+  "backspace_rate": 0.059,
+  "session_s": 205.14,
+  "rest_hours": 7.545,
+  "energy_1_5": 4
+ },
+ {
+  "day": 12,
+  "synthetic": true,
+  "wpm": 41.263,
+  "iki_mean_ms": 281.998,
+  "iki_sd_ms": 107.188,
+  "backspace_rate": 0.057,
+  "session_s": 173.926,
+  "rest_hours": 7.376,
+  "energy_1_5": 4
+ },
+ {
+  "day": 13,
+  "synthetic": true,
+  "wpm": 41.605,
+  "iki_mean_ms": 271.631,
+  "iki_sd_ms": 94.908,
+  "backspace_rate": 0.056,
+  "session_s": 203.323,
+  "rest_hours": 7.527,
+  "energy_1_5": 4
+ },
+ {
+  "day": 14,
+  "synthetic": true,
+  "wpm": 43.337,
+  "iki_mean_ms": 280.922,
+  "iki_sd_ms": 103.417,
+  "backspace_rate": 0.06,
+  "session_s": 191.668,
+  "rest_hours": 6.555,
+  "energy_1_5": 4
+ },
+ {
+  "day": 15,
+  "synthetic": true,
+  "wpm": 38.624,
+  "iki_mean_ms": 260.576,
+  "iki_sd_ms": 92.564,
+  "backspace_rate": 0.053,
+  "session_s": 183.281,
+  "rest_hours": 8.322,
+  "energy_1_5": 4
+ },
+ {
+  "day": 16,
+  "synthetic": true,
+  "wpm": 40.752,
+  "iki_mean_ms": 287.465,
+  "iki_sd_ms": 98.944,
+  "backspace_rate": 0.059,
+  "session_s": 175.881,
+  "rest_hours": 7.551,
+  "energy_1_5": 4
+ },
+ {
+  "day": 17,
+  "synthetic": true,
+  "wpm": 39.933,
+  "iki_mean_ms": 284.05,
+  "iki_sd_ms": 95.282,
+  "backspace_rate": 0.052,
+  "session_s": 185.197,
+  "rest_hours": 6.771,
+  "energy_1_5": 4
+ },
+ {
+  "day": 18,
+  "synthetic": true,
+  "wpm": 42.385,
+  "iki_mean_ms": 286.072,
+  "iki_sd_ms": 90.272,
+  "backspace_rate": 0.059,
+  "session_s": 140.045,
+  "rest_hours": 6.634,
+  "energy_1_5": 4
+ },
+ {
+  "day": 19,
+  "synthetic": true,
+  "wpm": 37.743,
+  "iki_mean_ms": 295.159,
+  "iki_sd_ms": 81.031,
+  "backspace_rate": 0.066,
+  "session_s": 163.09,
+  "rest_hours": 7.589,
+  "energy_1_5": 4
+ },
+ {
+  "day": 20,
+  "synthetic": true,
+  "wpm": 38.926,
+  "iki_mean_ms": 299.99,
+  "iki_sd_ms": 106.534,
+  "backspace_rate": 0.059,
+  "session_s": 174.522,
+  "rest_hours": 7.12,
+  "energy_1_5": 4
+ },
+ {
+  "day": 21,
+  "synthetic": true,
+  "wpm": 44.197,
+  "iki_mean_ms": 278.485,
+  "iki_sd_ms": 94.59,
+  "backspace_rate": 0.054,
+  "session_s": 167.479,
+  "rest_hours": 6.561,
+  "energy_1_5": 5
+ }
+]
