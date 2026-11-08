@@ -1,0 +1,47 @@
+# 1D. BioIncuba y proyectos comparables ganadores
+
+Fecha de consulta: 2026-11-08. Pulso UPCH no tiene vínculo con BioIncuba ni con ningún financiador citado aquí; todo es contexto de referencia.
+
+## 1. BioIncuba (UPCH)
+
+- **Qué es.** "Incubadora de negocios" de la UPCH; apoya startups y spin-offs basados en ciencia, innovación y tecnología. Dice llevar "más de 9 años ayudando a emprendedores". Fuente: https://blogs.cayetano.edu.pe/pregrado/bioincuba-incubadora-de-negocios/ (blog de pregrado de la UPCH, sin fecha visible).
+- **Áreas.** Salud, biotecnología, agropecuario, medio ambiente, alimentos (misma página).
+- **Programas.** Preincubación (validación de idea, modelo de negocio, pitch, prototipo), incubación (validación técnica y comercial, mentoría, constitución legal, pitch a inversionistas) y preaceleración (consultoría financiera, contacto con inversionistas, internacionalización) (misma página).
+- **Público.** Estudiantes, egresados, docentes e investigadores UPCH y emprendedores externos de ciencia/tecnología. La página **no declara criterios de selección**.
+- **Convocatorias.** Startup Perú 13G, publicada el 7 de enero de 2026 (https://investigacion.cayetano.edu.pe/noticias/convocatoria-startup-peru-13g-abierta/). Cita literal: "Bioincuba te brindará asesoría gratuita y acompañamiento integral en el proceso de postulación." Dirigida a "docentes, investigadores, egresados y estudiantes heredianos". Dos líneas: Emprendedores Innovadores, "hasta S/ 67,000 para equipos de emprendedores con prototipo funcional y tracción"; Emprendimientos Dinámicos, "hasta S/ 150,000 para empresas constituidas que cuenten con ventas comprobadas". La página no da fecha de cierre. También hubo asesoría para 12G (https://investigacion.cayetano.edu.pe/noticias/bioincuba-impulsa-a-emprendedores-hacia-startup-peru-12g-con-asesoria-gratuita/, solo vista en resultados de búsqueda; el artículo equivalente de https://ecosistemastartup.com/bioincuba-guia-a-emprendedores-hacia-startup-peru-12g sí fue abierto y no trae cifras ni nombres).
+- **Proyectos listados** (blog de pregrado): MAQ, Leatherlab, Titi, Muro Eólico, Inspirall, Sinba, Chuwa Plant, Bionatural Solutions, Ento Piruw, Le Qara. Ninguno es de salud mental ni de salud digital según la descripción disponible.
+- **Caso de estudiantes UPCH/PUCP.** HOUN (app que conecta estudiantes con arrendadores de cuartos), ganó el Social Ideas Challenge del Hemispheric Consortium of Universities, eMerge Americas, Miami, final el 20-04-2023, tras asesoría de Bioincuba desde febrero. Fuente: https://ciencias.cayetano.edu.pe/noticias/estudiantes-de-ingenieria-biomedica-pucp-upch-ganan-el-concurso-social-impact-challengeen-miami/. No es salud mental; el monto del premio no figura.
+- **Sin confirmar:** lista oficial completa de proyectos; proyectos de salud mental incubados; criterios de selección; cifras "más de 100 startups" (aparecen solo en el resumen de un buscador, no en una página abierta); un dato de "108 emprendimientos" tampoco se pudo verificar (el PDF de duict.upch.edu.pe resultó ser un login).
+
+## 2. Proyectos comparables
+
+| # | Proyecto | Financiador/concurso, año | Qué hace | URL | Cita textual (si hay cifra) | Notas |
+|---|---|---|---|---|---|---|
+| 1 | Vincere (biomédicos UPCH y PUCP) | Hackathon Minsa, 1.er puesto, 2017 | Videojuego que apoya el diagnóstico de depresión; refuerza los tests psicológicos de los centros de salud mental comunitarios | https://andina.pe/ingles/noticia-aplicativo-diagnostica-depresion-mediante-videojuego-gano-hackathon-del-minsa-684214.aspx | "Durante más de treinta horas continuas 110 personas" formaron 20 equipos | Premio: tres smartphones; no es financiamiento. Es un precedente UPCH en salud mental, pero no vinculado a BioIncuba en la fuente. Ojo: promete "diagnosticar", justo lo que Pulso evita |
+| 2 | Trasiente ("chat terapia") | Cofinanciada por ProInnóvate (fecha de convocatoria no confirmada); nota del 16-04-2024 | Bot de WhatsApp que da seguimiento al paciente y lo conecta con especialistas, quienes revisan un "mapa de emociones" diario | https://andina.pe/agencia/noticia-conoce-las-plataformas-peruanas-orientadas-al-cuidado-de-salud-910988.aspx | "A la fecha, Trasiente trabaja con escolares de cuatro centros educativos privados" | Monto no publicado. Modelo humano-en-el-circuito, parecido a nuestro puente |
+| 3 | VMood (SFU, Vietnam) | Grand Challenges Canada (Global Mental Health) y gobierno de Vietnam, 2022 | App móvil de autogestión de depresión conectada a recursos de salud mental | https://www.brightsurf.com/news/1ZZVQMD1/curbing-mental-health-in-vietnam-sfu-researchers-develop-virtual-self-management-tool.html | Financiamiento total de "$2.8 million"; la versión presencial previa mostró "clinically relevant improvement" en cerca del 60 % de participantes | No hay resultados de VMood mismo. Parte de un piloto de 2013 y un ECA |
+| 4 | StrongMinds | MIT Solve, Brain Health Challenge, Solver 2017 | Terapia grupal para depresión con trabajadores comunitarios legos, bajo costo | https://solve.mit.edu/articles/press-release-mit-solve-announces-2017-brain-health-challenge-solver-teams-following-live-pitch-event | "impoverished African women who suffer from depression" | No universitario; ejemplo de modelo humano escalable |
+| 5 | Mimerse | MIT Solve, Solver 2017 | Plataforma de realidad virtual para autoadministrar terapias psicológicas con evidencia | misma URL | "Mimerse is a virtual reality platform for mental health" | Sin cifras |
+| 6 | Tomo | MIT Solve, Solver 2017 | Chatbot con "buddy" anónimo entre pares | misma URL | "~700 million people worldwide struggling with depression" | Cifra de problema global usada como gancho |
+| 7 | Wellcome Prize for Mental Health Science (con Nature) | Wellcome, convocatoria vigente | Premio a intervenciones en ansiedad, depresión y psicosis, incluidas digitales | https://wellcome.org/insights/articles/wellcome-launches-worlds-largest-global-prize-mental-health-science | Ganador USD 1 millón; tres finalistas USD 250,000 cada uno; criterios "novelty, credibility, effectiveness and adoptability" | No hay ganadores aún (cierre 18-09-2026, ganador en junio de 2027). Sirve como rúbrica de lo que valoran los jurados |
+| 8 | Being Initiative / Global Mental Health Youth Seed | Grand Challenges Canada | Semillas para salud mental de jóvenes de 10 a 24 años | https://www.grandchallenges.ca/wp-content/uploads/2025/04/Being-April-8-2024-RFP-Summary-1.pdf (visto solo en resultados de búsqueda) | Programa previo: "up to $250,000 CAD over 18 to 24 months" (fuente: developmentaid.org, no abierta) | Convocatoria, no ganador. Colombia elegible; Perú y Chile no, en el aviso de 2024 |
+
+## 3. Cinco lecciones para nuestro pitch
+
+1. **Ancla la propuesta en evidencia previa, no en novedad.** VMood se presenta como versión digital de un modelo con piloto (2013) y ensayo aleatorizado, con la cifra de ~60 % de mejora; StrongMinds, como terapia grupal con legos de bajo costo. Wellcome pone "credibility" y "effectiveness" junto a "novelty". Nuestro equivalente: el inventario SISCO validado y la puerta a una persona real, no el tecleo.
+2. **Di en pantalla qué no prueba tu prototipo.** El único ejemplo peruano de salud mental con premio, Vincere, promete "diagnosticar"; un jurado informado lo descuenta. Wellcome puntúa "credibility". Nuestra ventaja es la tesis "No detectamos estrés": decirlo primero.
+3. **Un problema, una cifra, un usuario.** Tomo abre con "~700 million"; HOUN resuelve una sola necesidad estudiantil (alojamiento). Usa una cifra con fuente (la de Healthy Minds, marcada como dato de EE. UU.) y un estudiante concreto.
+4. **Enchufa tu solución a una institución que ya existe.** Vincere refuerza los tests de centros comunitarios; Trasiente opera con colegios y especialistas; Bioincuba da "asesoría gratuita y acompañamiento". Pulso refuerza la consejería que la universidad ya tiene y corre sin servidor, por lo que la sostenibilidad es costo casi cero, no una cifra inventada.
+5. **Muestra un prototipo funcional y la ruta del paso siguiente.** Startup Perú 13G exige "prototipo funcional y tracción"; Grand Challenges Canada usa semilla y luego escala. Cierra con la demo en video y un siguiente paso medible (publicar si la señal sirve, aunque sea que no), sin prometer usuarios ni impacto.
+
+Limitación: no se encontraron transcripciones ni diapositivas de pitch de ningún ganador; las lecciones se infieren de descripciones públicas y criterios de las convocatorias.
+
+## Descartado / no verificable
+
+- Owanga (Hult Prize Monterrey 2024): ganó, pero es baterías solares, no salud mental.
+- RAFA Health (Glasgow, Hult 2024) y Amigo (Manipal, Hult 2022): citados en búsquedas; no fueron ganadores confirmados ni se abrieron fuentes. No verificada.
+- Awake (app de estrés/ansiedad, "S/ 66,900" de ProInnóvate): aparece solo en un resumen de búsqueda; no abierta. No verificada.
+- Startup de estudiantes UTP Lima Sur (atención psicológica entre pares, nota del 18-07-2025, https://ecosistemastartup.com/?p=40218): sin nombre, financiamiento ni premio.
+- Shamiri (Kenia): financiado por Templeton, no por los concursos pedidos; "180,000 estudiantes" viene de un resumen de búsqueda. No usado.
+- Wellcome Leap, PAHO/OPS "Voces Jóvenes" (concurso creativo, no de innovación), ProInnóvate/Concytec con proyecto universitario de salud mental ganador: sin caso verificado.
+- Hult Prize y MIT Solve: sin ganador universitario de salud mental verificado en América Latina.

@@ -48,3 +48,13 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   mute al entrar a la slide. El temporizador empieza al pulsar T por primera vez (no al
   cargar) para que el ensayo no cuente el tiempo de preparación. PDF de respaldo generado
   con Chromium en modo impresión (la slide del video muestra un rótulo con la URL de la demo).
+- **2026-11-08 · Maratón, Fase 1 (investigación).** Cinco investigadores en paralelo
+  (`docs/investigacion/1A`–`1E`) y un verificador independiente (`verificacion.md`): de 55
+  filas, 50 ✅, 5 ⚠️ y 0 ❌. Solo las ✅ numéricas pasaron a `docs/evidencia.md` (E14–E36).
+  Se descartaron Evans 2018 (solo confirmado en nota de prensa) y la frase "casi el doble
+  que en 2019" del INEI (es +64 %). Los informes 1A y 1C pasan del tope de 1 200 palabras
+  (~1 390 y ~1 300) por tablas y URL: se dejaron enteros. Las capturas `docs/capturas/` van
+  dentro del repo porque el prompt de la maratón lo pide (la regla del workspace dice lo
+  contrario para capturas pesadas; aquí son ~12 PNG). La Línea 113, opción 5, sale de
+  Andina (agencia estatal), porque gob.pe rechazó la consulta automática (E35). Revertir:
+  `git revert` del commit `fase-1`.
