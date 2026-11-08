@@ -10,9 +10,32 @@ tiene.** Reto 3 — Hackathon FACI 2026, Universidad Peruana Cayetano Heredia.
 - Evidencia citada, con lo que dice y lo que no: [`docs/evidencia.md`](docs/evidencia.md)
 - Slides de exposición (8:00 con video de la demo): https://ichisieben.github.io/pulso-upch/expo/ ·
   respaldo [`expo/pulso-upch-expo.pdf`](expo/pulso-upch-expo.pdf)
+- Video de la demo (4:29, sin audio): [`demo/pulso-demo.mp4`](demo/pulso-demo.mp4) ·
+  tiempos por escena en [`docs/video-timestamps.md`](docs/video-timestamps.md)
 - Kit de exposición: [`docs/guion-exposicion.md`](docs/guion-exposicion.md) ·
   [`docs/preguntas-dificiles.md`](docs/preguntas-dificiles.md) ·
-  [`docs/arquitectura.md`](docs/arquitectura.md)
+  one-pager [`docs/one-pager.pdf`](docs/one-pager.pdf)
+- Producto y arquitectura V3: [`docs/PRODUCTO_V3.md`](docs/PRODUCTO_V3.md) (qué entra y qué
+  no, con su fuente) · [`docs/ARQUITECTURA_V3.md`](docs/ARQUITECTURA_V3.md) (piloto
+  propuesto, modelo de datos, tamaño muestral, hoja de ruta) ·
+  [`docs/DESIGN_SYSTEM.md`](docs/DESIGN_SYSTEM.md)
+- Investigación verificada: [`docs/investigacion/`](docs/investigacion/), 5 informes más
+  una verificación independiente de cada cifra contra su fuente
+
+## Novedades V3 (2026-11-08)
+
+- **Hablar con alguien** en todas las pantallas, con la Línea 113, opción 5 (MINSA) para una
+  crisis. La app no interviene: deriva.
+- **Check-in de 3 toques** (descanso, energía y una pregunta del SISCO tal cual). El
+  inventario completo se responde una vez y se puede pausar.
+- **Pulsito**, una guía del recorrido. Crece con el uso, nunca con las respuestas; no tiene
+  estados de ánimo ni rachas, y se puede apagar. **No se presenta como mecanismo de
+  retención**: la gamificación no mostró efecto sobre la adherencia (E32), así que es una
+  hipótesis que el piloto mide.
+- **Tema y accesibilidad:** modo claro u oscuro, 4 acentos con contraste AA y texto grande.
+  Todo se borra con "Borrar mis datos".
+- Landing con **"El problema en cifras"** (solo cifras verificadas, con su fuente al tocar),
+  **"De la demo al piloto"**, **"Un proyecto para toda Cayetano"** y **"Hacia dónde va"**.
 
 > **Pulso UPCH no diagnostica nada.** No detecta estrés, depresión ni ninguna condición de
 > salud. La medida primaria es un inventario validado en universitarios peruanos que el
@@ -59,14 +82,16 @@ consejería.
 ## Flujo de la app
 
 ```
-consentimiento granular (cada capa se activa por separado)
-  → inventario SISCO (medida primaria)
+bienvenida (con Pulsito, opcional)
+  → consentimiento granular (cada capa se activa por separado)
+  → tema y accesibilidad (modo, acento, texto grande, mascota sí/no)
+  → inventario SISCO (medida primaria; se puede pausar y retomar)
   → prueba de escritura (señal exploratoria, rotulada)
-  → autorreporte voluntario de descanso y energía + evaluaciones de la semana
-  → panel personal: tu semana vs. tu línea base + carga del calendario
+  → check-in de 3 toques: descanso, energía, una pregunta del SISCO tal cual
+  → panel personal: SISCO por subescala + carga + tu tecleo vs. tu línea base
   → si hay cambio sostenido: mensaje descriptivo CON educación nocebo integrada
-  → puente: orientación con una persona (un clic)
   → exportar mis datos · borrar mis datos
+"Hablar con alguien" + Línea 113 (opción 5): visibles en todas las pantallas
 ```
 
 El mensaje de cambio sostenido dice qué cambió en términos descriptivos, que las

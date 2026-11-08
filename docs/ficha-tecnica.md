@@ -222,7 +222,7 @@ modelo de IA generativa, y no procesa texto del usuario.
   https://doi.org/10.1017/S0033291725101979
 - Schütz, L., Cherif, Y., Sayffaerth, C., Weber, T., & Chiossi, F. (2026). Typing behavior
   in human-LLM interaction. *Proceedings of the ACM on Human-Computer Interaction*.
-  https://doi.org/10.1145/3821685
+  https://arxiv.org/abs/2606.28090 (DOI anunciado 10.1145/3821685, aún no registrado)
 - Valle-Palomino, N., et al. (2024). *BMC Psychology*, 12, 765.
   https://doi.org/10.1186/s40359-024-02272-w
 - Zulueta, J., et al. (2018). Predicting mood disturbance severity with mobile phone
