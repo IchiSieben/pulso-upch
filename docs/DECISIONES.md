@@ -66,3 +66,17 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   mascota), nunca como retención. La pregunta rotativa del check-in se muestra con la
   redacción publicada del SISCO ("este semestre"), sin adaptarla a "hoy". Revertir: la
   preferencia `mascot` a `false` por defecto en `app/src/prefs.js`.
+- **2026-11-08 · Maratón, Fase 3 (rediseño).** Primero `docs/DESIGN_SYSTEM.md`; después
+  la demo, la landing y las slides, cada una con su agente y verificada con Playwright.
+  - **Demo:** el flujo nuevo es inicio → consentimiento → tema → inventario (con pausa) →
+    escritura → check-in de 3 toques → panel → datos. "Hablar con alguien" y la Línea 113
+    están en la barra superior de todas las pantallas.
+  - **Check-in:** "Evaluaciones esta semana" salió del check-in para dejarlo en 3 toques.
+    Cuando falta ese dato, el panel muestra la carga del ciclo sintético, rotulada.
+  - **Mascota:** `stage()` en `app/src/mascot.js` es pura y solo lee días abiertos,
+    inventario y puente. Lo prueba `tests/test_mascot.py`.
+  - **Borrado:** `erase()` elimina todas las claves `pulso*`, incluidas las preferencias.
+  - **Selectores** estables para el video en `docs/selectores-demo.md`.
+  - **Slides:** las cifras grandes van en el color del texto, no en granate (el granate
+    es la marca, no el dato).
+  - **Revertir:** `git revert` del commit de la fase (`fase-3`).

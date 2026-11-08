@@ -3,6 +3,9 @@ import { createRecorder } from './keystroke.js'
 import { evaluate, describeChange, TYPING_FEATURES, BASELINE_DAYS, Z_THRESHOLD, STATE_CHANGE } from './detector.js'
 import * as S from './sisco.js'
 import * as store from './store.js'
+import * as prefsStore from './prefs.js'
+import { stage } from './mascot.js'
+import Mascot from './Mascot.jsx'
 import stable from '../../model/synthetic/stable.json'
 import isolated from '../../model/synthetic/isolated.json'
 import sustained from '../../model/synthetic/sustained.json'
@@ -17,42 +20,67 @@ const FEATURE_LABEL = { wpm: 'Velocidad (ppm)', iki_mean_ms: 'Pausa entre teclas
 // Synthetic weekly load for the demo cycle (evaluations + deliveries per week).
 const DEMO_LOAD = [1, 2, 3, 4, 4, 3, 4, 5, 2, 4, 5, 6, 4, 3, 5, 6]
 
-const STEPS = ['inicio', 'consentimiento', 'inventario', 'escritura', 'autorreporte', 'panel', 'datos']
+const STEPS = ['inicio', 'consentimiento', 'tema', 'inventario', 'escritura', 'checkin', 'panel', 'datos']
+// Every SISCO item uses the same frequency scale; the check-in rotates over all of them by day.
+const FREQ_ITEMS = S.SUBSCALES.flatMap(s => s.items.map((it, i) => ({ sub: s.id, i, stem: s.stem, text: S.itemText(it) })))
+const REST_CHOICES = [[5, '5 o menos'], [6, '6'], [7, '7'], [8, '8'], [9, '9 o más']]
 
 export default function App() {
-  const [data, setData] = useState(store.load)
+  const [data, setData] = useState(() => { const d = store.load(); return { ...d, usage: store.withDay(d.usage) } })
+  const [prefs, setPrefs] = useState(prefsStore.load)
   const [step, setStep] = useState(data.consent ? 'panel' : 'inicio')
+  const [cheer, setCheer] = useState('')
   const [notice, setNotice] = useState('')
   useEffect(() => { if (data.consent || data.sisco.length || data.sessions.length) store.save(data) }, [data])
-  useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [step])
-  // Reaching the panel without the self-report step must still keep the typing measurement.
+  useEffect(() => { window.scrollTo({ top: 0 }) }, [step])
+  // Reaching the panel without the check-in step must still keep the typing measurement.
   useEffect(() => { if (step === 'panel' && data.pending) setData(d => (d.pending ? commitSession(d, {}) : d)) }, [step, data.pending])
-  const go = s => { setNotice(''); setStep(s) }
+  const go = (s, c = '') => { setNotice(''); setCheer(c); setStep(s) }
+  const setPref = p => { const n = { ...prefs, ...p }; setPrefs(n); prefsStore.apply(n); prefsStore.save(n) }
+  const touchBridge = () => setData(d => ({ ...d, usage: { ...d.usage, bridgeTouched: true } }))
   const consent = data.consent || {}
   const next = from => {
-    const order = ['consentimiento', consent.sisco && 'inventario', consent.typing && 'escritura', consent.self && 'autorreporte', 'panel'].filter(Boolean)
+    const order = ['consentimiento', 'tema', consent.sisco && 'inventario', consent.typing && 'escritura', consent.self && 'checkin', 'panel'].filter(Boolean)
     return order[order.indexOf(from) + 1] || 'panel'
   }
+  const mStage = stage(store.mascotUsage(data.usage))
+  const mascot = s => prefs.mascot && <Mascot stage={mStage} step={s} />
 
   return (
     <>
       <nav className="bar">
         <span className="brand">Pulso <b>UPCH</b></span>
         <span className="bar-note">No es un diagnóstico</span>
+        <a className="bridge-btn" data-act="bridge" href={COUNSELING_URL} target="_blank" rel="noopener noreferrer" onClick={touchBridge}>Hablar con alguien</a>
       </nav>
+      <p className="crisis">
+        {!COUNSELING_CONFIRMED && <span>Canal directo pendiente de confirmar. </span>}
+        <a href="tel:113">En crisis: Línea 113, opción 5 (MINSA), gratuita, 24 horas.</a>
+      </p>
       <Progress step={step} />
       {notice && <p className="notice" role="status">{notice}</p>}
       <main>
-        {step === 'inicio' && <Intro onStart={() => go('consentimiento')} />}
-        {step === 'consentimiento' && <Consent initial={data.consent} onDone={c => { setData(d => ({ ...d, consent: c })); setStep(['inventario', 'escritura', 'autorreporte'][[c.sisco, c.typing, c.self].indexOf(true)] || 'panel') }} />}
-        {step === 'inventario' && <Inventory onDone={entry => { setData(d => ({ ...d, sisco: [...d.sisco, entry] })); go(next('inventario')) }} onSkip={() => go(next('inventario'))} />}
-        {step === 'escritura' && <Typing onDone={m => { setData(d => ({ ...d, pending: m })); go(next('escritura')) }} onSkip={() => go(next('escritura'))} />}
-        {step === 'autorreporte' && <SelfReport onDone={rep => { setData(d => commitSession(d, rep)); go('panel') }} />}
-        {step === 'panel' && <Panel data={data} onRedo={() => go('consentimiento')} onData={() => go('datos')} />}
-        {step === 'datos' && <MyData data={data} onBack={() => go('panel')} onErased={() => { const ok = store.erase(); setData({ consent: null, sisco: [], sessions: [] }); setStep('inicio'); setNotice(ok ? 'Tus datos se borraron de este navegador. Puedes comprobarlo: no queda nada guardado.' : 'No se pudo confirmar el borrado.') }} />}
-        {step !== 'panel' && step !== 'inicio' && step !== 'datos' && data.consent && step !== 'consentimiento' && (
-          <p className="skip-all"><button className="link" onClick={() => { setData(d => d.pending ? commitSession(d, {}) : d); go('panel') }}>Ir a mi panel</button></p>
-        )}
+        <div className="screen" key={step + cheer} data-step={step}>
+          {step === 'inicio' && <Intro mascot={mascot('inicio')} onStart={() => go('consentimiento')} />}
+          {step === 'consentimiento' && <Consent initial={data.consent} onDone={c => { setData(d => ({ ...d, consent: c })); go('tema') }} />}
+          {step === 'tema' && <Theme prefs={prefs} setPref={setPref} stageNow={mStage} onDone={() => go(next('tema'))} />}
+          {step === 'inventario' && <Inventory progress={data.inventoryProgress}
+            onPause={p => { setData(d => ({ ...d, inventoryProgress: p })); go(next('inventario')) }}
+            onDone={entry => { setData(d => ({ ...d, sisco: [...d.sisco, entry], inventoryProgress: null, usage: { ...d.usage, inventoryDone: true } })); go(next('inventario'), 'inventario-fin') }}
+            onSkip={() => go(next('inventario'))} />}
+          {step === 'escritura' && <Typing mascot={cheer && mascot(cheer)} onDone={m => { setData(d => ({ ...d, pending: m })); go(next('escritura')) }} onSkip={() => go(next('escritura'))} />}
+          {step === 'checkin' && <Checkin mascot={cheer && mascot(cheer)} onDone={rep => { setData(d => commitSession(d, rep)); go('panel', 'checkin-fin') }} />}
+          {step === 'panel' && <Panel data={data} mascot={mascot(cheer || 'panel')} onBridge={touchBridge} onResume={() => go('inventario')} onRedo={() => go('consentimiento')} onData={() => go('datos')} />}
+          {step === 'datos' && <MyData data={data} onBack={() => go('panel')} onErased={() => {
+            const ok = store.erase()
+            setData({ ...store.EMPTY }); setPrefs({ ...prefsStore.DEFAULT }); prefsStore.apply(prefsStore.DEFAULT)
+            go('inicio')
+            setNotice(ok ? 'Tus datos y tus preferencias se borraron de este navegador. No queda nada guardado.' : 'No se pudo confirmar el borrado.')
+          }} />}
+          {!['panel', 'inicio', 'datos', 'consentimiento'].includes(step) && data.consent && (
+            <p className="skip-all"><button className="link" data-act="to-panel" onClick={() => { setData(d => d.pending ? commitSession(d, {}) : d); go('panel') }}>Ir a mi panel</button></p>
+          )}
+        </div>
       </main>
       <footer>
         <p>Hackathon FACI 2026 · Universidad Peruana Cayetano Heredia · Reto 3</p>
@@ -74,15 +102,16 @@ function Progress({ step }) {
 }
 
 /* ---------- 0 · Intro ---------- */
-function Intro({ onStart }) {
+function Intro({ onStart, mascot }) {
   return (
     <section className="hero">
+      {mascot}
       <p className="eyebrow">Para estudiantes de la UPCH</p>
       <h1>Una lectura honesta<br />de tu semana.</h1>
       <p className="lead">Un inventario validado en universitarios peruanos, tu carga académica y, si quieres, un experimento con tu ritmo de escritura. Todo comparado solo contigo. Y, si lo necesitas, un camino corto hasta una persona real.</p>
-      <button className="primary" onClick={onStart}>Empezar</button>
+      <button className="primary" data-act="primary" onClick={onStart}>Empezar</button>
       <ul className="facts">
-        <li><b>3 minutos.</b> 29 preguntas breves y una prueba de escritura opcional.</li>
+        <li><b>Unos minutos.</b> 31 preguntas breves, que puedes pausar, y una prueba de escritura opcional.</li>
         <li><b>Nada sale de tu dispositivo.</b> No hay servidor. Puedes exportar o borrar todo.</li>
         <li><b>No es un diagnóstico.</b> Describe hábitos; no evalúa tu salud.</li>
       </ul>
@@ -96,7 +125,7 @@ function Consent({ initial, onDone }) {
   const Row = ({ k, title, children }) => (
     <label className="toggle">
       <span><b>{title}</b><small>{children}</small></span>
-      <input type="checkbox" checked={c[k]} onChange={e => setC({ ...c, [k]: e.target.checked })} />
+      <input type="checkbox" data-consent={k} checked={c[k]} onChange={e => setC({ ...c, [k]: e.target.checked })} />
       <i aria-hidden="true" />
     </label>
   )
@@ -106,9 +135,9 @@ function Consent({ initial, onDone }) {
       <h2>Tú decides qué se mide.</h2>
       <p className="lead">Cada parte se activa por separado. Puedes desactivarla ahora o más tarde.</p>
       <div className="list">
-        <Row k="sisco" title="Inventario SISCO de estrés académico">La medida principal. 29 preguntas sobre situaciones, reacciones y estrategias. Validado en 628 universitarios de Lima.</Row>
+        <Row k="sisco" title="Inventario SISCO de estrés académico">La medida principal. 31 preguntas sobre situaciones, reacciones y estrategias. Validado en 628 universitarios de Lima.</Row>
         <Row k="typing" title="Experimento con tu ritmo de escritura">Medimos <em>cómo</em> escribes (velocidad, pausas, borrados), nunca <em>qué</em> escribes. Es exploratorio: la evidencia dice que no mide estrés.</Row>
-        <Row k="self" title="Descanso, energía y carga de la semana">Tres preguntas voluntarias. Puedes dejar cualquiera en blanco.</Row>
+        <Row k="self" title="Check-in de descanso y energía">Tres toques voluntarios: descanso, energía y una pregunta del inventario. Puedes dejar cualquiera en blanco.</Row>
       </div>
       <ul className="fine">
         <li>Todo se guarda solo en este navegador. No se envía a la universidad ni a nadie.</li>
@@ -116,17 +145,50 @@ function Consent({ initial, onDone }) {
         <li>Puedes exportar o borrar tus datos en cualquier momento.</li>
         <li>En un piloto real aplicarían la Ley N.° 29733 y su Reglamento (D.S. N.° 016-2024-JUS).</li>
       </ul>
-      <button className="primary" onClick={() => onDone({ ...c, at: new Date().toISOString() })}>Continuar</button>
+      <button className="primary" data-act="primary" onClick={() => onDone({ ...c, at: new Date().toISOString() })}>Continuar</button>
     </section>
   )
 }
 
-/* ---------- 2 · SISCO (primary measure) ---------- */
+/* ---------- 2 · Theme and accessibility (preference, never analysed) ---------- */
+function Theme({ prefs, setPref, stageNow, onDone }) {
+  return (
+    <section>
+      <p className="eyebrow">Paso 2 · Tema y accesibilidad</p>
+      <h2>Como te resulte más cómodo.</h2>
+      <p className="lead">Se guarda solo en este navegador y no se analiza. Se borra con tus datos.</p>
+      <div className="q"><p>Modo</p>
+        <div className="seg">{prefsStore.MODES.map(([k, l]) => <button key={k} data-pref={`mode-${k}`} aria-pressed={prefs.mode === k} className={prefs.mode === k ? 'on' : ''} onClick={() => setPref({ mode: k })}>{l}</button>)}</div>
+      </div>
+      <div className="q"><p>Color de acento</p>
+        <div className="swatches">{prefsStore.ACCENTS.map(([k, l]) => (
+          <button key={k} data-pref={`accent-${k}`} data-swatch={k} aria-pressed={prefs.accent === k} className={prefs.accent === k ? 'on' : ''} onClick={() => setPref({ accent: k })}><i aria-hidden="true" />{l}</button>
+        ))}</div>
+      </div>
+      <div className="list">
+        <label className="toggle"><span><b>Texto grande</b><small>Sube el tamaño base de la letra.</small></span>
+          <input type="checkbox" data-pref="large-text" checked={prefs.largeText} onChange={e => setPref({ largeText: e.target.checked })} /><i aria-hidden="true" /></label>
+        <label className="toggle"><span><b>Mostrar a Pulsito</b><small>La guía del recorrido. Apagada, todo funciona igual.</small></span>
+          <input type="checkbox" data-pref="mascot" checked={prefs.mascot} onChange={e => setPref({ mascot: e.target.checked })} /><i aria-hidden="true" /></label>
+      </div>
+      <div className="preview" aria-label="Vista previa">
+        {prefs.mascot && <Mascot stage={stageNow} step="tema" />}
+        <p>Así se verán los botones y los enlaces.</p>
+        <span className="primary sample" aria-hidden="true">Botón principal</span> <a href="#tema" onClick={e => e.preventDefault()}>Un enlace</a>
+      </div>
+      <div className="actions">
+        <button className="primary" data-act="primary" onClick={onDone}>Continuar</button>
+      </div>
+    </section>
+  )
+}
+
+/* ---------- 3 · SISCO (primary measure) ---------- */
 function Scale({ value, onChange, name }) {
   return (
     <div className="scale" role="radiogroup" aria-label={name}>
       {S.SCALE.map(o => (
-        <button key={o.v} role="radio" aria-checked={value === o.v} className={value === o.v ? 'on' : ''} onClick={() => onChange(o.v)}>
+        <button key={o.v} role="radio" data-v={o.v} aria-checked={value === o.v} className={value === o.v ? 'on' : ''} onClick={() => onChange(o.v)}>
           <span className="n">{o.v}</span><span className="l">{o.label}</span>
         </button>
       ))}
@@ -134,46 +196,64 @@ function Scale({ value, onChange, name }) {
   )
 }
 
-function Inventory({ onDone, onSkip }) {
-  const [page, setPage] = useState(-1) // -1 = filter + intensity
-  const [filter, setFilter] = useState(null)
-  const [intensity, setIntensity] = useState(null)
-  const [ans, setAns] = useState(() => Object.fromEntries(S.SUBSCALES.map(s => [s.id, s.items.map(() => null)])))
+const emptyAnswers = () => Object.fromEntries(S.SUBSCALES.map(s => [s.id, s.items.map(() => null)]))
+
+function Inventory({ progress, onPause, onDone, onSkip }) {
+  const [resuming, setResuming] = useState(Boolean(progress))
+  const [page, setPage] = useState(progress?.page ?? -1) // -1 = filter + intensity
+  const [filter, setFilter] = useState(progress?.filter ?? null)
+  const [intensity, setIntensity] = useState(progress?.intensity ?? null)
+  const [ans, setAns] = useState(() => progress?.answers ?? emptyAnswers())
   const sub = S.SUBSCALES[page]
   const finish = (skipped = false) => {
     const answers = skipped ? {} : ans
-    onDone({ date: new Date().toISOString(), filter, intensity, answers, scores: S.score(answers) })
+    onDone({ date: new Date().toISOString(), filter, intensity, answers, scores: S.score(answers), skipped })
   }
+  const pause = () => onPause({ page, filter, intensity, answers: ans, at: new Date().toISOString() })
+  const pauseBtn = <button className="link" data-act="pause" onClick={pause}>Pausar y seguir después</button>
+  if (resuming) return (
+    <section>
+      <p className="eyebrow">Inventario SISCO</p>
+      <h2>Lo dejaste a medias.</h2>
+      <p className="lead">Tus respuestas siguen aquí, en este navegador. Puedes continuar donde te quedaste.</p>
+      <div className="actions">
+        <button className="primary" data-act="resume" onClick={() => setResuming(false)}>Retomar inventario</button>
+        <button className="link" data-act="skip" onClick={onSkip}>Ahora no</button>
+      </div>
+    </section>
+  )
   if (page === -1) return (
     <section>
-      <p className="eyebrow">Paso 2 · Medida principal</p>
+      <p className="eyebrow">Paso 3 · Medida principal</p>
       <h2>Inventario SISCO</h2>
       <p className="lead">{S.CITATION.short}. Responde pensando en este semestre. No hay respuestas buenas ni malas.</p>
       <div className="q">
         <p>{S.FILTER}</p>
         <div className="seg">
-          {[['Sí', true], ['No', false]].map(([l, v]) => <button key={l} className={filter === v ? 'on' : ''} onClick={() => setFilter(v)}>{l}</button>)}
+          {[['Sí', true], ['No', false]].map(([l, v]) => <button key={l} data-filter={v ? 'si' : 'no'} className={filter === v ? 'on' : ''} onClick={() => setFilter(v)}>{l}</button>)}
         </div>
       </div>
       {filter === true && (
         <div className="q">
           <p>{S.INTENSITY}</p>
-          <div className="seg five">{[1, 2, 3, 4, 5].map(v => <button key={v} className={intensity === v ? 'on' : ''} onClick={() => setIntensity(v)}>{v}</button>)}</div>
+          <div className="seg five">{[1, 2, 3, 4, 5].map(v => <button key={v} data-intensity={v} className={intensity === v ? 'on' : ''} onClick={() => setIntensity(v)}>{v}</button>)}</div>
         </div>
       )}
       {filter === false && <p className="soft">Según el instrumento, si no tuviste momentos de preocupación o nerviosismo el inventario termina aquí. Puedes seguir con el resto de la app.</p>}
       <div className="actions">
-        {filter === true && <button className="primary" disabled={intensity == null} onClick={() => setPage(0)}>Siguiente</button>}
-        {filter === false && <button className="primary" onClick={() => finish(true)}>Continuar</button>}
-        <button className="link" onClick={onSkip}>Omitir el inventario</button>
+        {filter === true && <button className="primary" data-act="primary" disabled={intensity == null} onClick={() => setPage(0)}>Siguiente</button>}
+        {filter === false && <button className="primary" data-act="primary" onClick={() => finish(true)}>Continuar</button>}
+        <button className="link" data-act="skip" onClick={onSkip}>Omitir el inventario</button>
       </div>
     </section>
   )
   const vals = ans[sub.id]
+  const done = S.SUBSCALES.slice(0, page).reduce((n, s) => n + s.items.length, 0) + vals.filter(v => v != null).length
   let lastGroup = -1
   return (
     <section>
       <p className="eyebrow">Inventario SISCO · {page + 1} de {S.SUBSCALES.length}</p>
+      <div className="inv-progress" role="progressbar" aria-label="Avance del inventario" aria-valuemin={0} aria-valuemax={S.totalItems} aria-valuenow={done}><span style={{ width: `${(done / S.totalItems) * 100}%` }} /></div>
       <h2>{sub.title}</h2>
       <p className="lead">{sub.stem}</p>
       <ol className="items">
@@ -192,21 +272,22 @@ function Inventory({ onDone, onSkip }) {
       <p className="fine">{vals.filter(v => v != null).length} de {vals.length} respondidas. Puedes dejar preguntas en blanco.</p>
       <div className="actions">
         {page < S.SUBSCALES.length - 1
-          ? <button className="primary" onClick={() => setPage(page + 1)}>Siguiente</button>
-          : <button className="primary" onClick={() => finish()}>Terminar inventario</button>}
-        <button className="link" onClick={() => setPage(page - 1)}>Atrás</button>
+          ? <button className="primary" data-act="primary" onClick={() => setPage(page + 1)}>Siguiente</button>
+          : <button className="primary" data-act="primary" onClick={() => finish()}>Terminar inventario</button>}
+        {pauseBtn}
+        <button className="link" data-act="back" onClick={() => setPage(page - 1)}>Atrás</button>
       </div>
       {!S.SOURCE_VERIFIED && <p className="fine pending">[por verificar] {S.SOURCE_NOTE}</p>}
     </section>
   )
 }
 
-/* ---------- 3 · Typing (exploratory signal) ---------- */
+/* ---------- 4 · Typing (exploratory signal) ---------- */
 function Exploratory() {
   return <p className="tag-exp"><b>Señal exploratoria.</b> No mide estrés: entre personas, el ritmo de escritura predice estrés con ρ = 0,078 (Naegelin et al., 2025). Aquí solo se compara contigo.</p>
 }
 
-function Typing({ onDone, onSkip }) {
+function Typing({ onDone, onSkip, mascot }) {
   const rec = useRef(createRecorder())
   const area = useRef(null)
   const [count, setCount] = useState(0)
@@ -219,50 +300,58 @@ function Typing({ onDone, onSkip }) {
   }
   return (
     <section>
-      <p className="eyebrow">Paso 3 · Experimento</p>
+      {mascot}
+      <p className="eyebrow">Paso 4 · Experimento</p>
       <h2>Escribe lo que quieras durante un minuto.</h2>
       <Exploratory />
       <p className="lead">Por ejemplo, cómo fue tu día. <b>Lo que escribas no se guarda ni se envía</b>: solo contamos el tiempo entre teclas y los borrados.</p>
-      <textarea ref={area} rows={6} autoComplete="off" autoCorrect="off" spellCheck={false}
+      <textarea ref={area} rows={6} data-act="typing" autoComplete="off" autoCorrect="off" spellCheck={false}
         onKeyDown={e => { rec.current.onKeyDown(e); setCount(rec.current.count()) }}
         placeholder="Escribe aquí. Se borra al terminar." />
       <p className="fine">Pulsaciones contadas: {count} · <a href={REPO} target="_blank" rel="noopener noreferrer">Ver el código que descarta el texto</a></p>
       {msg && <p className="soft">{msg}</p>}
       <div className="actions">
-        <button className="primary" onClick={finish}>Terminar</button>
-        <button className="link" onClick={onSkip}>Omitir el experimento</button>
+        <button className="primary" data-act="primary" onClick={finish}>Terminar</button>
+        <button className="link" data-act="skip" onClick={onSkip}>Omitir el experimento</button>
       </div>
     </section>
   )
 }
 
-/* ---------- 4 · Self-report ---------- */
-function SelfReport({ onDone }) {
-  const [rest, setRest] = useState('')
+/* ---------- 5 · Daily check-in: at most 3 taps ---------- */
+function Checkin({ onDone, mascot }) {
+  const [rest, setRest] = useState(null)
   const [energy, setEnergy] = useState(null)
-  const [evals, setEvals] = useState('')
+  const [item, setItem] = useState(null)
+  const q = FREQ_ITEMS[Math.floor(Date.parse(store.today()) / 86400000) % FREQ_ITEMS.length]
   return (
     <section>
-      <p className="eyebrow">Paso 4 · Voluntario</p>
-      <h2>Tres preguntas rápidas.</h2>
+      {mascot}
+      <p className="eyebrow">Paso 5 · Check-in voluntario</p>
+      <h2>Tres toques.</h2>
       <div className="q"><p>¿Cuántas horas descansaste anoche?</p>
-        <input inputMode="decimal" type="number" min="0" max="24" step="0.5" value={rest} onChange={e => setRest(e.target.value)} placeholder="Ej. 7" /></div>
+        <div className="seg">{REST_CHOICES.map(([v, l]) => <button key={v} data-rest={v} className={rest === v ? 'on' : ''} onClick={() => setRest(rest === v ? null : v)}>{l}</button>)}</div></div>
       <div className="q"><p>¿Cuánta energía sientes hoy?</p>
-        <div className="seg five">{[1, 2, 3, 4, 5].map(v => <button key={v} className={energy === v ? 'on' : ''} onClick={() => setEnergy(energy === v ? null : v)}>{v}</button>)}</div>
+        <div className="seg five">{[1, 2, 3, 4, 5].map(v => <button key={v} data-energy={v} className={energy === v ? 'on' : ''} onClick={() => setEnergy(energy === v ? null : v)}>{v}</button>)}</div>
         <p className="fine">1 = muy poca · 5 = mucha</p></div>
-      <div className="q"><p>¿Cuántas evaluaciones o entregas tienes esta semana?</p>
-        <input inputMode="numeric" type="number" min="0" max="30" value={evals} onChange={e => setEvals(e.target.value)} placeholder="Ej. 3" /></div>
+      <div className="q sisco-item">
+        <p className="tag">Pregunta del inventario, tal cual</p>
+        <p className="fine stem">{q.stem}</p>
+        <p>{q.text}</p>
+        <Scale name={q.text} value={item} onChange={v => setItem(item === v ? null : v)} />
+        <p className="fine">Un ítem suelto no es un puntaje validado. Se guarda con su fecha, solo como dato descriptivo.</p>
+      </div>
       <div className="actions">
-        <button className="primary" onClick={() => onDone({
-          rest_hours: rest === '' ? null : Number(rest), energy_1_5: energy, evaluations_week: evals === '' ? null : Number(evals),
+        <button className="primary" data-act="primary" onClick={() => onDone({
+          rest_hours: rest, energy_1_5: energy, sisco_item: item == null ? null : { subscale: q.sub, index: q.i, value: item },
         })}>Ver mi panel</button>
-        <button className="link" onClick={() => onDone({})}>Prefiero no responder</button>
+        <button className="link" data-act="skip" onClick={() => onDone({})}>Prefiero no responder</button>
       </div>
     </section>
   )
 }
 
-/* ---------- 5 · Panel ---------- */
+/* ---------- 6 · Panel ---------- */
 function buildHistory(scenario, today) {
   // 20 synthetic days rescaled to YOUR measured rhythm, so the baseline is "you"; day 21 is real.
   const synth = SCENARIOS[scenario][1].slice(0, 20).map(d => ({ ...d }))
@@ -276,7 +365,7 @@ function buildHistory(scenario, today) {
   return [...synth, { day: 21, synthetic: false, ...Object.fromEntries(TYPING_FEATURES.map(f => [f, today[f]])) }]
 }
 
-function Panel({ data, onRedo, onData }) {
+function Panel({ data, mascot, onBridge, onResume, onRedo, onData }) {
   const lastSisco = data.sisco[data.sisco.length - 1]
   const lastSession = [...data.sessions].reverse().find(s => s.wpm != null)
   const lastAny = data.sessions[data.sessions.length - 1]
@@ -291,6 +380,7 @@ function Panel({ data, onRedo, onData }) {
   return (
     <>
       <section className="hero small">
+        {mascot}
         <p className="eyebrow">Tu panel</p>
         <h1>Tu semana,<br />comparada contigo.</h1>
         <p className="lead">Tres lecturas, en orden de confianza. La primera es la que cuenta.</p>
@@ -299,7 +389,8 @@ function Panel({ data, onRedo, onData }) {
       <section className="card primary-measure">
         <p className="eyebrow">1 · Medida principal · validada</p>
         <h2>Inventario SISCO</h2>
-        {!lastSisco && <p className="soft">No respondiste el inventario. <button className="link" onClick={onRedo}>Responderlo ahora</button></p>}
+        {!lastSisco && data.inventoryProgress && <p className="soft">Tienes el inventario a medias. <button className="link" data-act="resume" onClick={onResume}>Retomar inventario</button></p>}
+        {!lastSisco && !data.inventoryProgress && <p className="soft">No respondiste el inventario. <button className="link" onClick={onRedo}>Responderlo ahora</button></p>}
         {lastSisco && lastSisco.filter === false && <p className="lead">Indicaste que este semestre no tuviste momentos de preocupación o nerviosismo. Según el instrumento, el inventario termina ahí.</p>}
         {lastSisco && lastSisco.filter !== false && (
           <>
@@ -332,12 +423,12 @@ function Panel({ data, onRedo, onData }) {
           <h2>Tu ritmo de escritura frente a tu propio patrón</h2>
           <Exploratory />
           <div className="seg wrap" role="group" aria-label="Escenario sintético">
-            {Object.entries(SCENARIOS).map(([k, [l]]) => <button key={k} className={scenario === k ? 'on' : ''} onClick={() => setScenario(k)}>{l}</button>)}
+            {Object.entries(SCENARIOS).map(([k, [l]]) => <button key={k} data-scenario={k} aria-pressed={scenario === k} className={scenario === k ? 'on' : ''} onClick={() => setScenario(k)}>{l}</button>)}
           </div>
           <p className="fine synth">Historia sintética de demostración: los días 1–20 son simulados {lastSession ? 'y ajustados a tu ritmo de hoy; el día 21 es tu prueba real.' : '(no hiciste la prueba de escritura).'} Elige un escenario para ver cómo responde la regla.</p>
           <Chart days={days} result={result} feature={feature} />
           <div className="seg wrap small" role="group" aria-label="Métrica">
-            {TYPING_FEATURES.map(f => <button key={f} className={feature === f ? 'on' : ''} onClick={() => setFeature(f)}>{FEATURE_LABEL[f]}</button>)}
+            {TYPING_FEATURES.map(f => <button key={f} data-feature={f} className={feature === f ? 'on' : ''} onClick={() => setFeature(f)}>{FEATURE_LABEL[f]}</button>)}
           </div>
           {change ? <ChangeMessage result={result} /> : (
             <div className="calm">
@@ -348,14 +439,14 @@ function Panel({ data, onRedo, onData }) {
         </section>
       )}
 
-      <Bridge />
+      <Bridge onBridge={onBridge} />
 
       <section className="card quiet">
         <h2>Tus datos</h2>
         <p className="lead">Están solo en este navegador.</p>
         <div className="actions">
-          <button className="secondary" onClick={onData}>Exportar o borrar mis datos</button>
-          <button className="link" onClick={onRedo}>Repetir el recorrido</button>
+          <button className="primary" data-act="primary" onClick={onData}>Exportar o borrar mis datos</button>
+          <button className="link" data-act="redo" onClick={onRedo}>Repetir el recorrido</button>
         </div>
       </section>
     </>
@@ -431,16 +522,16 @@ function ChangeMessage({ result }) {
   )
 }
 
-/* ---------- 6 · Bridge ---------- */
-function Bridge() {
+/* ---------- Bridge: the app refers, it does not intervene ---------- */
+function Bridge({ onBridge }) {
   return (
     <section className="bridge">
       <p className="eyebrow">Cuando quieras</p>
-      <h2>Hablar con una persona.</h2>
-      <p className="lead">La UPCH tiene un servicio de bienestar para sus estudiantes. Un clic y estás ahí. No se le envía ningún resultado de esta app.</p>
-      <a className="primary" href={COUNSELING_URL} target="_blank" rel="noopener noreferrer">Quiero orientación</a>
+      <h2>Hablar con alguien.</h2>
+      <p className="lead">La UPCH tiene un servicio de bienestar para sus estudiantes. Un toque y estás ahí. No se le envía ningún resultado de esta app.</p>
+      <a className="primary" data-act="bridge-card" href={COUNSELING_URL} target="_blank" rel="noopener noreferrer" onClick={onBridge}>Quiero orientación</a>
       {!COUNSELING_CONFIRMED && <p className="fine pending">Enlace a Bienestar Estudiantil UPCH. El canal directo de consejería psicológica está <b>pendiente de confirmar</b> con la universidad.</p>}
-      <p className="fine">Si estás en peligro o piensas en hacerte daño, llama a la Línea 113 del MINSA (salud mental, gratuita, las 24 horas) o acude a emergencias.</p>
+      <p className="fine"><a href="tel:113">En crisis: Línea 113, opción 5 (MINSA), gratuita, 24 horas.</a></p>
     </section>
   )
 }
@@ -453,14 +544,14 @@ function MyData({ data, onBack, onErased }) {
     <section>
       <p className="eyebrow">Tus datos</p>
       <h2>Son tuyos.</h2>
-      <p className="lead">En este navegador hay {nSisco} inventario{nSisco === 1 ? '' : 's'} y {nSessions} sesión{nSessions === 1 ? '' : 'es'}. Ningún texto escrito: solo números.</p>
+      <p className="lead">En este navegador hay {nSisco} inventario{nSisco === 1 ? '' : 's'} y {nSessions} sesión{nSessions === 1 ? '' : 'es'}. Ningún texto escrito: solo números. Borrar también quita tus preferencias de tema y el avance del inventario.</p>
       <pre className="peek">{JSON.stringify(data.sessions[nSessions - 1] || {}, null, 1)}</pre>
       <div className="actions">
-        <button className="secondary" onClick={() => store.exportJson(data)}>Exportar mis datos (JSON)</button>
+        <button className="secondary" data-act="export" onClick={() => store.exportJson(data)}>Exportar mis datos (JSON)</button>
         {!confirm
-          ? <button className="secondary" onClick={() => setConfirm(true)}>Borrar mis datos</button>
-          : <button className="primary" onClick={onErased}>Sí, borrar todo</button>}
-        <button className="link" onClick={onBack}>Volver al panel</button>
+          ? <button className="secondary" data-act="erase" onClick={() => setConfirm(true)}>Borrar mis datos</button>
+          : <button className="primary" data-act="erase-confirm" onClick={onErased}>Sí, borrar todo</button>}
+        <button className="link" data-act="primary" onClick={onBack}>Volver al panel</button>
       </div>
     </section>
   )

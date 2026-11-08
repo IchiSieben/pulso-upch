@@ -18,7 +18,6 @@ body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.47 -apple-system,
 a{color:var(--accent)}
 .bar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:12px 22px;background:color-mix(in srgb,var(--bg) 80%,transparent);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);font-size:14px}
 .bar b{font-weight:600}.bar nav{display:flex;gap:18px;overflow-x:auto}.bar nav a{color:var(--muted);text-decoration:none;white-space:nowrap}
-.wrap{max-width:692px;margin:0 auto;padding:0 22px}
 section{padding:88px 0 8px}
 .eyebrow{margin:0 0 8px;font-size:14px;font-weight:600;color:var(--muted)}
 .eyebrow:before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--gold);margin-right:8px;vertical-align:1px}
@@ -116,35 +115,123 @@ footer p{margin:6px 0}
 .mo .ours.in .sweep span.t b{transform:none}
 .big [data-count]{font-variant-numeric:tabular-nums}
 @media (max-width:560px){.refs{grid-template-columns:1fr}}
+/* layout: reading column by default, wide blocks for cards and diagrams */
+main>section{max-width:692px;margin:0 auto;padding-left:22px;padding-right:22px}
+main>section.w{max-width:1080px}
+main>section.w>.eyebrow,main>section.w>h2,main>section.w>.lead{max-width:692px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:3px 10px;border-radius:980px;background:var(--bg);color:var(--muted);border:1px solid var(--line)}
+.tag.pe{color:var(--accent)}
+.tag.prop{color:var(--accent);background:var(--bg2)}
+/* cifras */
+.figs{list-style:none;padding:0;margin:40px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.figs li{background:var(--bg2);border-radius:28px;padding:30px 26px 22px;display:flex;flex-direction:column}
+.figs li:first-child{grid-column:1/-1}
+.figs .tags{display:flex;flex-wrap:wrap;gap:6px}
+.figs .d{font-size:clamp(56px,14vw,120px);font-weight:700;letter-spacing:-.045em;line-height:1;margin:18px 0 0;font-variant-numeric:tabular-nums}
+.figs .d small{font-size:.5em;letter-spacing:-.02em}
+.figs .ctx{margin:14px 0 0;font-size:19px;line-height:1.38;flex:1}
+details.src{margin-top:16px;border-top:1px solid var(--line);font-size:13px;line-height:1.45;color:var(--faint)}
+details.src summary{min-height:44px;display:flex;align-items:center;cursor:pointer;color:var(--accent);font-weight:600;list-style:none}
+details.src summary::-webkit-details-marker{display:none}
+details.src summary:after{content:"+";margin-left:8px;font-weight:400}
+details.src[open] summary:after{content:"−"}
+details.src summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+details.src p{margin:0 0 6px}
+details.src a{color:var(--faint)}
+.closing{font-size:clamp(28px,6vw,48px);line-height:1.1;font-weight:700;letter-spacing:-.03em;margin:56px 0 0;max-width:692px}
+.closing em{font-style:normal;color:var(--accent)}
+/* demo -> piloto */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:36px}
+.duo figure{margin:0;background:var(--bg2);border-radius:28px;padding:24px 20px}
+.duo figcaption{display:flex;justify-content:space-between;align-items:center;gap:8px;font-weight:600;font-size:19px;margin-bottom:16px}
+.flow{display:flex;flex-direction:column;align-items:stretch;gap:0}
+.box{background:var(--bg);border:1.5px solid var(--line);border-radius:16px;padding:12px 14px;font-size:15px;line-height:1.35}
+.box b{display:block;font-weight:600}
+.box span{color:var(--muted);font-size:13px}
+.box.outer{border-style:dashed;border-color:var(--faint);background:none;padding:14px}
+.box.outer .box+.box{margin-top:8px}
+.box.agg{border-color:var(--accent)}
+.box.br{background:var(--brand);border-color:var(--gold);color:var(--brand-fg)}.box.br span{color:var(--brand-fg)}
+.box.no{border-style:dashed;color:var(--faint)}
+.dn{align-self:center;width:2px;height:22px;background:var(--faint);position:relative;margin:4px 0 8px}
+.dn:after{content:"";position:absolute;left:-4px;bottom:-6px;border:5px solid transparent;border-top:7px solid var(--faint)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.lbl{font-size:12px;color:var(--faint);text-align:center;margin:-2px 0 6px}
+table.dm{width:100%;border-collapse:collapse;margin-top:28px;font-size:15px;line-height:1.4}
+.dm th{text-align:left;font-size:13px;color:var(--faint);font-weight:600;padding:0 12px 10px 0;border-bottom:1px solid var(--line)}
+.dm td{padding:14px 12px 14px 0;border-bottom:1px solid var(--line);vertical-align:top;color:var(--muted)}
+.dm td:first-child{color:var(--fg);font-weight:600}
+/* cards: carreras / hoja de ruta */
+.cards{list-style:none;padding:0;margin:36px 0 0;display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.cards li{background:var(--bg2);border-radius:24px;padding:22px 20px}
+.cards h3{font-size:19px}
+.cards p{margin:0;color:var(--muted);font-size:15px;line-height:1.42}
+.cards .q{margin-top:12px;color:var(--fg);font-size:15px}
+.road{grid-template-columns:repeat(3,1fr)}
+.cards .when{color:var(--fg);margin-bottom:10px;font-size:clamp(44px,8vw,64px);font-weight:700;letter-spacing:-.04em;line-height:1;margin:0 0 4px}
+.road .when small{font-size:.4em;letter-spacing:0;font-weight:600;color:var(--muted)}
+.road .ok{margin-top:12px;font-size:13px;color:var(--faint)}
+.crisis{margin-top:24px;padding:18px 22px;border-radius:18px;border:1.5px solid var(--gold);font-size:17px}
+.crisis b{font-weight:600}
+@media (max-width:900px){.cards{grid-template-columns:repeat(2,1fr)}.road{grid-template-columns:1fr}}
+@media (max-width:700px){.figs{grid-template-columns:1fr}.duo{grid-template-columns:1fr}}
+@media (max-width:560px){.cards{grid-template-columns:1fr}
+.dm thead{display:none}.dm,.dm tbody,.dm tr,.dm td{display:block}.dm tr{padding:14px 0;border-bottom:1px solid var(--line)}.dm td{border:0;padding:2px 0}
+.dm td:not(:first-child):before{content:attr(data-h) ": ";color:var(--faint);font-size:13px;font-weight:600}}
+.mo .duo .flow>*{opacity:0;transform:translateY(10px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo .duo figure.in .flow>*{opacity:1;transform:none}
+.mo .duo figure.in .flow>:nth-child(2){transition-delay:.25s}.mo .duo figure.in .flow>:nth-child(3){transition-delay:.5s}
+.mo .duo figure.in .flow>:nth-child(4){transition-delay:.75s}.mo .duo figure.in .flow>:nth-child(5){transition-delay:1s}
+.mo .duo figure.in .flow>:nth-child(6){transition-delay:1.25s}.mo .duo figure.in .flow>:nth-child(7){transition-delay:1.5s}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
 <body>
 <header class="bar">
   <span><b>Pulso</b> UPCH</span>
-  <nav aria-label="Secciones"><a href="#problema">Problema</a><a href="#arquitectura">Arquitectura</a><a href="#evidencia">Evidencia</a><a href="#privacidad">Privacidad</a><a href="#piloto">Piloto</a></nav>
+  <nav aria-label="Secciones"><a href="#cifras">Cifras</a><a href="#arquitectura">Arquitectura</a><a href="#de-la-demo-al-piloto">Demo y piloto</a><a href="#evidencia">Evidencia</a><a href="#privacidad">Privacidad</a><a href="#hacia-donde">Hoja de ruta</a></nav>
 </header>
 
-<main class="wrap">
+<main>
 <section class="hero">
   <p class="eyebrow">Hackathon FACI 2026 · UPCH · Reto 3</p>
   <h1>No detectamos estrés.<br>Acortamos el camino.</h1>
   <p class="lead">Pulso UPCH le da al estudiante una lectura honesta de su semana, con una medida validada en Perú, y lo acerca en un clic a <b>una persona real</b> del servicio que su universidad ya tiene.</p>
   <div class="cta">
-    <a class="btn" href="./demo/">Probar la demo</a>
-    <a class="lnk" href="#evidencia">Lo que la evidencia dice</a>
+    <a class="btn" href="https://ichisieben.github.io/pulso-upch/demo/">Probar la demo</a>
+    <a class="lnk" href="./expo/">Ver las slides</a>
+    <a class="lnk" href="https://github.com/IchiSieben/pulso-upch">Código</a>
   </div>
   <p class="note"><b>No es un diagnóstico.</b> La app no evalúa la salud de nadie. Los resultados sobre datos sintéticos demuestran viabilidad técnica, no validez clínica. La demo corre entera en el navegador: no hay servidor y nada sale del dispositivo.</p>
 </section>
 
-<section id="problema">
-  <p class="eyebrow">1 · El problema</p>
-  <h2>El malestar es común. Llegar a ayuda, no.</h2>
-  <div class="stats">
-    <div class="stat"><div class="n">24 %</div><p>de universitarios en nivel <b>alto</b> de síntomas de ansiedad y depresión.</p><small>Valle-Palomino et al. 2024 · n = 1 243 · 6 universidades de Piura · muestreo probabilístico · niveles de escala, no diagnósticos</small></div>
-    <div class="stat"><div class="n">50 %</div><p>en nivel <b>moderado</b>. Juntos, tres de cada cuatro.</p><small>Misma fuente</small></div>
-    <div class="stat wide"><div class="n">~4 de 10</div><p>estudiantes con síntomas no recibe tratamiento. Las barreras: falta de tiempo (23 %), dinero (22 %), preferir manejarlo solo (18 %). <b>Ninguna se resuelve detectando mejor.</b></p><small>Healthy Minds Study 2024-25, EE. UU., 84 000+ estudiantes · el 40 % lo derivamos del 60 % que sí recibió tratamiento</small></div>
-  </div>
+<section id="cifras" class="w">
+  <p class="eyebrow">1 · El problema en cifras</p>
+  <h2>Cinco cifras, cada una con su fuente.</h2>
+  <p class="lead">Toca “Fuente” para ver de dónde sale cada número y qué no dice.</p>
+  <ul class="figs">
+    <li><div class="tags"><span class="tag pe">Perú</span><span class="tag">grupo de edad, no estudiantes</span></div>
+      <p class="d"><span data-count="14.4" data-dec="1">14,4</span><small> %</small></p>
+      <p class="ctx">de las personas de 15 a 19 años en Perú tuvo algún episodio depresivo en el último año.</p>
+      <details class="src"><summary>Fuente</summary><p>INEI (2024), <i>Perú: Enfermedades No Transmisibles y Transmisibles, 2023</i>, ENDES, Cuadro 1.41. Es autorreporte de un grupo de edad, no de estudiantes. <a href="https://encuestas.inei.gob.pe/endes/2023/SALUD/ENFERMEDADES_ENDES_2023.pdf">PDF del INEI</a></p></details></li>
+    <li><div class="tags"><span class="tag pe">Perú</span><span class="tag">nivel de escala, no diagnóstico</span></div>
+      <p class="d"><span data-count="24" data-dec="0">24</span><small> %</small></p>
+      <p class="ctx">de universitarios de Piura en nivel alto de síntomas de ansiedad y depresión.</p>
+      <details class="src"><summary>Fuente</summary><p>Valle-Palomino et al. (2024), <i>BMC Psychology</i> 12:765. n = 1 243, 6 universidades, muestreo probabilístico, escala ESTAD. Es Piura, no Lima ni la UPCH. <a href="https://doi.org/10.1186/s40359-024-02272-w">DOI</a></p></details></li>
+    <li><div class="tags"><span class="tag">Mundo</span><span class="tag">síntomas y diagnóstico</span></div>
+      <p class="d"><span data-count="15.7" data-dec="1">15,7</span><small> %</small></p>
+      <p class="ctx">de los estudiantes de medicina con síntomas depresivos buscó tratamiento.</p>
+      <details class="src"><summary>Fuente</summary><p>Rotenstein et al. (2016), <i>JAMA</i> 316(21):2214–2236. 167 estudios, 43 países. Dato mundial, no peruano. <a href="https://doi.org/10.1001/jama.2016.17324">DOI</a></p></details></li>
+    <li><div class="tags"><span class="tag">Mundo</span><span class="tag">intención, no conducta</span></div>
+      <p class="d"><span data-count="24.6" data-dec="1">24,6</span><small> %</small></p>
+      <p class="ctx">de universitarios de primer año buscaría tratamiento con seguridad ante un problema emocional.</p>
+      <details class="src"><summary>Fuente</summary><p>Ebert et al. (2019), <i>Int J Methods Psychiatr Res</i> 28(2):e1782. 13 984 estudiantes de 8 países. El 56,4 % prefiere manejarlo solo. <a href="https://doi.org/10.1002/mpr.1782">DOI</a></p></details></li>
+    <li><div class="tags"><span class="tag">Mundo</span><span class="tag">población general</span></div>
+      <p class="d">+<span data-count="25" data-dec="0">25</span><small> %</small></p>
+      <p class="ctx">aumentó la ansiedad y la depresión en el mundo en el primer año de la pandemia.</p>
+      <details class="src"><summary>Fuente</summary><p>OMS (2 mar 2022), <i>Mental Health and COVID-19: Early evidence of the pandemic's impact</i>. Población general, no estudiantes. <a href="https://www.who.int/news/item/02-03-2022-covid-19-pandemic-triggers-25-increase-in-prevalence-of-anxiety-and-depression-worldwide">who.int</a></p></details></li>
+  </ul>
+  <p class="closing">El malestar es común. <em>Llegar a ayuda, no.</em></p>
 </section>
 
 <section id="tesis">
@@ -181,8 +268,54 @@ footer p{margin:6px 0}
   </div>
 </section>
 
-<section id="evidencia">
-  <p class="eyebrow">4 · Lo que la evidencia dice y lo que no</p>
+<section id="de-la-demo-al-piloto" class="w">
+  <p class="eyebrow">4 · De la demo al piloto</p>
+  <h2>Hoy, todo en tu navegador. Mañana, solo agregados.</h2>
+  <p class="lead">La demo no tiene servidor. Un piloto lo necesitaría, y solo con aprobación ética. Así cambiaría el camino de los datos.</p>
+  <div class="duo">
+    <figure>
+      <figcaption>Demo <span class="tag">hoy</span></figcaption>
+      <div class="flow">
+        <div class="box outer"><b>Tu navegador</b><span>único lugar donde hay datos</span>
+          <div class="box" style="margin-top:10px"><b>SISCO, check-in, tecleo</b><span>el tecleo se reduce a 5 números; el texto no se guarda</span></div>
+          <div class="box"><b>Almacenamiento local</b><span>exportar · borrar todo</span></div></div>
+        <div class="dn" aria-hidden="true"></div>
+        <div class="box br"><b>Hablar con alguien</b><span>enlace a Bienestar, sin ningún dato</span></div>
+        <div class="dn" aria-hidden="true"></div>
+        <div class="box no"><b>Servidor</b><span>no existe</span></div>
+      </div>
+    </figure>
+    <figure>
+      <figcaption>Piloto <span class="tag prop">propuesto</span></figcaption>
+      <div class="flow">
+        <div class="box"><b>App + consentimiento informado</b><span>solo números y un código seudónimo: sin nombre ni DNI</span></div>
+        <div class="dn" aria-hidden="true"></div>
+        <div class="box"><b>Servidor seudonimizado (UPCH)</b><span>la tabla código ↔ persona no está aquí: la custodia el investigador principal, fuera de línea</span></div>
+        <div class="dn" aria-hidden="true"></div>
+        <div class="split">
+          <div class="box"><b>Base de investigación</b><span>seudonimizada</span></div>
+          <div class="box agg"><b>Panel de Bienestar</b><span>solo agregados; celdas con menos de 10 estudiantes se suprimen; nunca un registro individual</span></div>
+        </div>
+      </div>
+    </figure>
+  </div>
+  <p class="fine">El puente sigue siendo voluntario: el estudiante pide la cita y nadie lo contacta por un puntaje.</p>
+  <h3 style="margin-top:48px">Cada dato, dónde vive y quién lo ve</h3>
+  <table class="dm">
+    <thead><tr><th>Dato</th><th>Dónde</th><th>Cuánto tiempo</th><th>Quién lo ve</th></tr></thead>
+    <tbody>
+      <tr><td>Texto escrito</td><td data-h="Dónde">En ninguna parte</td><td data-h="Cuánto tiempo">—</td><td data-h="Quién lo ve">Nadie</td></tr>
+      <tr><td>Tiempos de tecla (5 números por sesión)</td><td data-h="Dónde">Navegador · piloto: base seudonimizada</td><td data-h="Cuánto tiempo">Estudio + 2 años, luego se borra</td><td data-h="Quién lo ve">Equipo de investigación</td></tr>
+      <tr><td>Respuestas SISCO y check-in</td><td data-h="Dónde">Navegador · piloto: base seudonimizada</td><td data-h="Cuánto tiempo">Estudio + 2 años</td><td data-h="Quién lo ve">Equipo de investigación; el estudiante ve las suyas</td></tr>
+      <tr><td>Preferencias (tema, mascota)</td><td data-h="Dónde">Solo en el navegador</td><td data-h="Cuánto tiempo">Hasta que el estudiante las borre</td><td data-h="Quién lo ve">Solo el estudiante</td></tr>
+      <tr><td>Clic en “Hablar con alguien”</td><td data-h="Dónde">Navegador · piloto: contador agregado</td><td data-h="Cuánto tiempo">Duración del estudio</td><td data-h="Quién lo ve">Bienestar, solo en agregado</td></tr>
+      <tr><td>Nombre, DNI, correo</td><td data-h="Dónde">Nunca en la app · piloto: solo en el consentimiento</td><td data-h="Cuánto tiempo">Lo que fije el comité</td><td data-h="Quién lo ve">Investigador principal</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<section id="evidencia" class="w">
+  <p class="eyebrow">5 · Lo que la evidencia dice y lo que no</p>
   <h2>Revisamos la evidencia de nuestra propia idea. No se sostenía.</h2>
   <p class="lead">Nuestra primera versión prometía detectar cambios conductuales con el tecleo. Esto es lo que encontramos, y lo que decidimos por eso.</p>
   <ul class="ev">
@@ -204,6 +337,9 @@ footer p{margin:6px 0}
     <li><div class="big">9 de 19</div><p class="what">participantes analizados en el estudio fundacional de tecleo y ánimo.</p>
       <dl><dt>Dice</dt><dd>BiAffect (trastorno bipolar): 64 observaciones, R² marginal 0,41, sin AUC reportado. Una revisión de 24 estudios (9 801 personas) señala falta de validación externa.</dd><dt>Decidimos</dt><dd class="dec">No citamos ninguna precisión de la literatura como si fuera nuestra.</dd></dl>
       <p class="src">Zulueta et al. 2018 · <a href="https://doi.org/10.2196/jmir.9775">JMIR</a> · Leaning et al. 2024 · <a href="https://doi.org/10.1016/j.neubiorev.2024.105541">DOI</a></p></li>
+    <li><div class="big">Sin efecto</div><p class="what">La gamificación no mejoró la adherencia en apps de salud mental.</p>
+      <dl><dt>Dice</dt><dd>38 estudios, n = 8 110: β = −1,93; P = 0,40. En 79 ensayos de apps para depresión y ansiedad, el abandono fue menor con recordatorios, con contacto humano y sin gamificación.</dd><dt>No dice</dt><dd>Que no haya efectos pequeños. Y el segundo dato es observacional y mide el abandono de las evaluaciones del ensayo.</dd><dt>Decidimos</dt><dd class="dec">La mascota es <b>una hipótesis, no una promesa de retención</b>: sin rachas ni puntos, y se prueba con un A/B en el piloto.</dd></dl>
+      <p class="src">Six et al. 2021 · JMIR Mental Health · <a href="https://doi.org/10.2196/32199">DOI</a> · Liu et al. 2026 · JAMA Psychiatry · <a href="https://doi.org/10.1001/jamapsychiatry.2025.3439">DOI</a></p></li>
     <li><div class="big"><span data-count="628" data-dec="0">628</span></div><p class="what">universitarios de Lima validaron el SISCO, nuestra medida principal.</p>
       <dl><dt>Dice</dt><dd>31 ítems; modelos de 3 y 5 factores con buen ajuste; invarianza por sexo; ρ de Jöreskog 0,82 / 0,88 / 0,69.</dd><dt>No dice</dt><dd>Puntos de corte clínicos. El SISCO no diagnostica.</dd><dt>Decidimos</dt><dd class="dec">Reportamos la media por subescala, <b>sin niveles inventados</b>.</dd></dl>
       <p class="src">Manrique-Millones, Millones-Rivalles &amp; Manrique-Pino 2019 · Ansiedad y Estrés · <a href="https://doi.org/10.1016/j.anyes.2019.03.001">DOI</a></p></li>
@@ -230,17 +366,23 @@ footer p{margin:6px 0}
     <li><p class="au">Plak et al.</p><p class="yr">2022 · Higher Education Quarterly</p><p class="ad">Una alerta temprana que acierta no basta para ayudar. Por eso medimos el tiempo hasta una consulta.</p><a href="https://doi.org/10.1111/hequ.12298">Fuente</a></li>
     <li><p class="au">Baumel et al.</p><p class="yr">2019 · J. Med. Internet Res.</p><p class="ad">Retención mediana de 3,3 % a 30 días en apps de salud mental. Por eso el valor va en la primera semana.</p><a href="https://doi.org/10.2196/14567">Fuente</a></li>
     <li><p class="au">Valle-Palomino et al.</p><p class="yr">2024 · BMC Psychology</p><p class="ad">24 % en nivel alto y 50 % en moderado de síntomas en 1 243 universitarios de Piura: la magnitud del problema.</p><a href="https://doi.org/10.1186/s40359-024-02272-w">Fuente</a></li>
-    <li><p class="au">Healthy Minds Network</p><p class="yr">2025 · Data Report 2024-25 (EE. UU.)</p><p class="ad">Cerca de 6 de cada 10 con síntomas recibe tratamiento, y las barreras no son de detección.</p><a href="https://healthpolicy.ucla.edu/our-work/publications/healthy-minds-study-2024-2025-data-report">Fuente</a></li>
     <li><p class="au">Lahme et al.</p><p class="yr">2024 · arXiv (preprint)</p><p class="ad">Carga percibida y estrés van juntos (r = 0,62). Sustenta la capa del calendario.</p><a href="https://arxiv.org/abs/2404.05682">Fuente</a></li>
     <li><p class="au">Zulueta et al.</p><p class="yr">2018 · J. Med. Internet Res.</p><p class="ad">El estudio fundacional de tecleo y ánimo analizó 9 personas: no prueba que funcione.</p><a href="https://doi.org/10.2196/jmir.9775">Fuente</a></li>
     <li><p class="au">Leaning et al.</p><p class="yr">2024 · Neurosci. Biobehav. Rev.</p><p class="ad">24 estudios de fenotipado digital en depresión, con falta de validación externa.</p><a href="https://doi.org/10.1016/j.neubiorev.2024.105541">Fuente</a></li>
     <li><p class="au">Boluarte-Carbajal et al.</p><p class="yr">2023 · Frontiers in Psychology</p><p class="ad">Escala de Estrés Percibido en Lima: dos puntajes, no uno. La alternativa documentada al SISCO.</p><a href="https://doi.org/10.3389/fpsyg.2023.1160466">Fuente</a></li>
+    <li><p class="au">INEI</p><p class="yr">2024 · ENDES 2023, Cuadro 1.41</p><p class="ad">14,4 % de las personas de 15 a 19 años en Perú con algún episodio depresivo en el último año.</p><a href="https://encuestas.inei.gob.pe/endes/2023/SALUD/ENFERMEDADES_ENDES_2023.pdf">Fuente</a></li>
+    <li><p class="au">Rotenstein et al.</p><p class="yr">2016 · JAMA</p><p class="ad">Solo el 15,7 % de los estudiantes de medicina con síntomas depresivos buscó tratamiento. El problema es llegar a ayuda.</p><a href="https://doi.org/10.1001/jama.2016.17324">Fuente</a></li>
+    <li><p class="au">Ebert et al.</p><p class="yr">2019 · Int. J. Methods Psychiatr. Res.</p><p class="ad">Solo el 24,6 % de los estudiantes de primer año buscaría tratamiento con seguridad: las barreras son de actitud.</p><a href="https://doi.org/10.1002/mpr.1782">Fuente</a></li>
+    <li><p class="au">Organización Mundial de la Salud</p><p class="yr">2022 · Scientific brief</p><p class="ad">+25 % de ansiedad y depresión en el mundo en el primer año de la pandemia. Contexto, no estudiantes.</p><a href="https://www.who.int/news/item/02-03-2022-covid-19-pandemic-triggers-25-increase-in-prevalence-of-anxiety-and-depression-worldwide">Fuente</a></li>
+    <li><p class="au">Six et al.</p><p class="yr">2021 · JMIR Mental Health</p><p class="ad">La gamificación no mostró efecto sobre la adherencia. Por eso la mascota es una hipótesis.</p><a href="https://doi.org/10.2196/32199">Fuente</a></li>
+    <li><p class="au">Liu et al.</p><p class="yr">2026 · JAMA Psychiatry</p><p class="ad">Menos abandono con recordatorios y contacto humano, y sin gamificación. El contacto humano es el centro.</p><a href="https://doi.org/10.1001/jamapsychiatry.2025.3439">Fuente</a></li>
+    <li><p class="au">Andina</p><p class="yr">2025 · agencia estatal de noticias</p><p class="ad">La Línea 113, opción 5, del MINSA está disponible las 24 horas. Es la salida para una crisis.</p><a href="https://andina.pe/agencia/noticia-linea-113-del-minsa-mas-60000-personas-recibieron-orientacion-psicologica-gratuita-1048068.aspx">Fuente</a></li>
   </ul>
   <p class="fine">Todas las cifras, verificadas contra la fuente primaria, con sus matices: <a href="https://github.com/IchiSieben/pulso-upch/blob/master/docs/evidencia.md">docs/evidencia.md</a>.</p>
 </section>
 
 <section id="privacidad">
-  <p class="eyebrow">5 · Privacidad por diseño</p>
+  <p class="eyebrow">6 · Privacidad por diseño</p>
   <h2>El texto nunca se guarda. Puedes comprobarlo.</h2>
   <p class="lead">Cada pulsación se reduce en el acto a una marca de tiempo y un tipo: carácter o borrado. Qué tecla fue se descarta.</p>
 <pre><b>// app/src/keystroke.js</b>
@@ -258,10 +400,11 @@ return { wpm, iki_mean_ms, iki_sd_ms, backspace_rate, session_s }</pre>
     <li><h3>No se notifica a nadie</h3><p>El botón de orientación lleva a la página pública de Bienestar Estudiantil de la UPCH (el canal directo de consejería está pendiente de confirmar) y no le envía ningún resultado.</p></li>
     <li><h3>Si hubiera servidor</h3><p>El backend opcional rechaza cualquier campo que no sea numérico (<a href="https://github.com/IchiSieben/pulso-upch/blob/master/backend/main.py#L29-L40">main.py, <code>extra="forbid"</code></a>): un texto devuelve HTTP 422 y no toca el disco. Probado en <code>backend/test_api.py</code>.</p></li>
   </ul>
+  <p class="crisis"><b>En crisis: Línea 113, opción 5 (MINSA), gratuita, 24 horas.</b> La app la muestra junto al puente, siempre visible.</p>
 </section>
 
 <section id="piloto">
-  <p class="eyebrow">6 · Indicadores del piloto</p>
+  <p class="eyebrow">7 · Indicadores del piloto</p>
   <h2>Medimos el puente y el daño. No la precisión.</h2>
   <ul class="rows">
     <li><h3>Tiempo hasta la primera consulta atendida <span class="tagp">primario</span></h3><p>Días entre la derivación en la app y la cita efectivamente asistida, contra la línea base histórica del servicio.</p></li>
@@ -273,28 +416,56 @@ return { wpm, iki_mean_ms, iki_sd_ms, backspace_rate, session_s }</pre>
   </ul>
 </section>
 
+<section id="cayetano" class="w">
+  <p class="eyebrow">8 · Un proyecto para toda Cayetano</p>
+  <h2>Ocho carreras, ocho preguntas. <span class="tag prop" style="vertical-align:middle;font-size:14px">propuesto</span></h2>
+  <p class="lead">Ninguna facultad ha aceptado nada todavía. Así se repartiría el trabajo.</p>
+  <ul class="cards">
+    <li><h3>Psicología</h3><p>El SISCO, el protocolo de derivación y el lenguaje no patologizante.</p><p class="q">¿Qué lleva a un estudiante a pedir cita, y cómo lo vive el consejero?</p></li>
+    <li><h3>Medicina</h3><p>La población con más carga reportada y el diseño clínico.</p><p class="q">¿Cambia el SISCO de los estudiantes de medicina a lo largo del ciclo?</p></li>
+    <li><h3>Salud Pública y Salud Global</h3><p>Diseño del estudio, tamaño muestral y equidad de acceso.</p><p class="q">¿Qué proporción llega a una cita efectiva y cuánto tarda?</p></li>
+    <li><h3>Enfermería</h3><p>Primer contacto presencial y triaje.</p><p class="q">¿Pueden los tópicos ser puerta de entrada al puente?</p></li>
+    <li><h3>Ingeniería Informática</h3><p>Privacidad en el dispositivo y la señal exploratoria intra-sujeto.</p><p class="q">¿Es estable la señal de tecleo de cada estudiante frente a su propia línea base?</p></li>
+    <li><h3>Ingeniería Industrial</h3><p>Flujo de agenda y capacidad del servicio.</p><p class="q">¿Cuántas derivaciones absorbe la consejería sin saturarse?</p></li>
+    <li><h3>Administración en Salud</h3><p>Modelo de servicio, costos e indicadores.</p><p class="q">¿Qué costo y qué indicadores justifican mantenerlo?</p></li>
+    <li><h3>Educación</h3><p>Calendario y carga académica.</p><p class="q">¿Qué prácticas de evaluación reducen el estresor “sobrecarga”?</p></li>
+  </ul>
+</section>
+
+<section id="hacia-donde" class="w">
+  <p class="eyebrow">9 · Hacia dónde va</p>
+  <h2>Primero ética y piloto. Después, incubación.</h2>
+  <p class="lead">Todo lo que sigue es <b>propuesto</b>: no está acordado con ninguna unidad de la UPCH.</p>
+  <ul class="cards road">
+    <li><p class="when">6 <small>meses</small></p><h3>Aprobación y convenio</h3><p>Protocolo ante el comité de ética, convenio con Bienestar y postulación a BioIncuba, la incubadora de la UPCH, como paso natural después del hackathon.</p><p class="ok">Éxito: aprobación ética escrita y un canal de citas real en lugar del aviso “pendiente”.</p></li>
+    <li><p class="when">12 <small>meses</small></p><h3>Piloto de un semestre</h3><p>Unos 250 estudiantes. Basta para medir el SISCO y el puente si el efecto es grande; si es pequeño, el piloto es de factibilidad y estima el efecto para un estudio mayor.</p><p class="ok">Éxito: tiempo hasta la atención y autoetiquetado medidos, y publicados.</p></li>
+    <li><p class="when">24 <small>meses</small></p><h3>Extender o cerrar</h3><p>Si el puente funciona, más facultades y un estudio de sostenibilidad. Si no, se publica y se cierra.</p><p class="ok">Éxito: una decisión con datos, no con entusiasmo.</p></li>
+  </ul>
+  <p class="fine">BioIncuba pide prototipo funcional y tracción. La tracción solo puede salir del piloto: por eso va en ese orden.</p>
+</section>
+
 <section id="proyeccion">
-  <p class="eyebrow">7 · Qué haría falta para un piloto real</p>
+  <p class="eyebrow">10 · Qué haría falta para un piloto real</p>
   <h2>Lo que no tenemos todavía, dicho claro.</h2>
   <ul class="rows">
     <li><h3>Comité de ética</h3><p>Protocolo, consentimiento y evaluación de riesgos ante el Comité Institucional de Ética en Investigación de la UPCH. No presentado aún.</p></li>
     <li><h3>Convenio con Bienestar Estudiantil <span class="tagp">propuesto</span></h3><p>Canal de citas y línea base histórica del tiempo hasta la primera consulta. No hay contacto formal: hoy el botón lleva a la página pública de Bienestar y el canal directo de consejería está pendiente de confirmar.</p></li>
-    <li><h3>Tamaño muestral <span class="tagp">[por verificar]</span></h3><p>Se calcula con la línea base real del servicio. Sin ese dato, cualquier número sería inventado.</p></li>
-    <li><h3>Cumplimiento legal</h3><p>Ley N.° 29733 y su Reglamento (D.S. N.° 016-2024-JUS): datos sensibles, consentimiento expreso, banco de datos inscrito, derechos ARCO.</p></li>
+    <li><h3>Tamaño muestral <span class="tagp">propuesto</span></h3><p>Unos 250 estudiantes. Con potencia solo si el efecto en el puente es grande; si es menor, el piloto es de factibilidad. La línea base real del servicio está <b>por verificar</b> con Bienestar.</p></li>
+    <li><h3>Cumplimiento legal</h3><p>Ley N.° 29733 y su nuevo Reglamento (D.S. N.° 016-2024-JUS): datos sensibles, consentimiento expreso, banco de datos inscrito, derechos ARCO.</p></li>
   </ul>
-  <div class="cta"><a class="btn" href="./demo/">Probar la demo</a><a class="lnk" href="https://github.com/IchiSieben/pulso-upch">Código en GitHub</a><a class="lnk" href="docs/Reto3_PulsoUPCH.pdf">Ficha técnica (PDF)</a></div>
+  <div class="cta"><a class="btn" href="https://ichisieben.github.io/pulso-upch/demo/">Probar la demo</a><a class="lnk" href="./expo/">Slides</a><a class="lnk" href="https://github.com/IchiSieben/pulso-upch">Código en GitHub</a><a class="lnk" href="docs/Reto3_PulsoUPCH.pdf">Ficha técnica (PDF)</a></div>
 </section>
 </main>
 
 <footer>
   <p>Pulso UPCH · Hackathon FACI 2026 · Universidad Peruana Cayetano Heredia · Reto 3.</p>
-  <p>Pulso UPCH no diagnostica nada. Los resultados sobre datos sintéticos demuestran viabilidad técnica, no validez clínica. Si estás en peligro, llama a la Línea 113 del MINSA (salud mental, gratuita, las 24 horas) o acude a emergencias.</p>
-  <p>Uso de IA: construido con asistencia de Claude (Anthropic) mediante Claude Code, que redactó, programó y verificó las citas contra sus fuentes; el equipo decidió y revisó. Código MIT. SISCO: Barraza (2007), uso académico con cita.</p>
+  <p>Pulso UPCH no diagnostica nada. Los resultados sobre datos sintéticos demuestran viabilidad técnica, no validez clínica. <b>En crisis: Línea 113, opción 5 (MINSA), gratuita, 24 horas</b>, o acude a emergencias.</p>
+  <p>Uso de IA: construido con asistencia de Claude (Anthropic) mediante Claude Code, que redactó y programó. El 8 de noviembre de 2026, agentes de IA hicieron la búsqueda bibliográfica y un verificador de IA independiente contrastó cada cifra con su fuente. El equipo decidió, y las personas aún deben revisar cada cita antes de usarla. Código MIT. SISCO: Barraza (2007), uso académico con cita.</p>
 </footer>
 
 <script>
 const INFO = {
-  sisco: ['Inventario SISCO · medida principal', 'El estudiante responde 29 preguntas sobre estresores, reacciones y estrategias de afrontamiento (escala 1–5). Validado en 628 universitarios de Lima, con invarianza por sexo. Es lo que más pesa en el panel.', 'app/src/sisco.js'],
+  sisco: ['Inventario SISCO · medida principal', 'El estudiante responde 31 preguntas sobre estresores, reacciones y estrategias de afrontamiento (escala 1–5). Validado en 628 universitarios de Lima, con invarianza por sexo. Es lo que más pesa en el panel.', 'app/src/sisco.js'],
   cal: ['Carga del calendario · observable', 'Cuántas evaluaciones y entregas hay en la semana. No infiere nada sobre el estado interno: se observa. La carga percibida y el estrés van juntos (r = 0,62); el estrés sube en las primeras semanas del ciclo y se queda en una meseta.', 'app/src/App.jsx · autorreporte'],
   typing: ['Tecleo · señal exploratoria', 'Velocidad, pausas, irregularidad, borrados y duración. Nunca el texto. Rotulado en pantalla como exploratorio con su ρ = 0,078: no mide estrés, mide desviación respecto a tu propio patrón.', 'app/src/keystroke.js'],
   browser: ['Tu navegador', 'Todo el cálculo ocurre en el dispositivo del estudiante. La demo está publicada como archivos estáticos: no hay servidor que pueda caerse en la exposición ni que reciba datos.', 'demo/ · GitHub Pages'],
@@ -343,9 +514,9 @@ nodes.forEach(n => {
     el.querySelectorAll('[data-count]').forEach(count)
     io.unobserve(el)
   }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' })
-  document.querySelectorAll('main section > :not(ul):not(.stats):not(.diagram), .stats > .stat, .ev > li, .rows > li, .refs > li').forEach(el => {
+  document.querySelectorAll('main section > :not(ul):not(.diagram):not(.duo), .figs > li, .ev > li, .rows > li, .refs > li, .cards > li, .duo > figure').forEach(el => {
     el.classList.add('rv')
-    if (el.parentElement.matches('ul, .stats')) el.style.transitionDelay = ([...el.parentElement.children].indexOf(el) % 4) * 70 + 'ms'
+    if (el.parentElement.matches('ul, .duo')) el.style.transitionDelay = ([...el.parentElement.children].indexOf(el) % 4) * 70 + 'ms'
     io.observe(el)
   })
   const dia = document.querySelector('.diagram')
