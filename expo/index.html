@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pulso UPCH · Exposición</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='14' fill='%23B03437'/%3E%3Cpath d='M6 17h6l2-6 4 11 2-5h6' stroke='%23F3C72D' stroke-width='2.4' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<style>
+/* Self-contained deck. 1600x900 stage scaled to the window. Cayetano palette: granate brand,
+   dorado only for details (never text on white). Soft amber = "change" states, never alarm red. */
+:root{--bg:#fff;--bg2:#f5f5f7;--fg:#1d1d1f;--muted:#5a5a5f;--faint:#6e6e73;--brand:#B03437;--gold:#F3C72D;--amber-bg:#fdf6e7;--amber:#8a5d00;--line:rgba(0,0,0,.09)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#111;overflow:hidden}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Segoe UI",Inter,Roboto,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;color:var(--fg)}
+#stage{position:absolute;left:50%;top:50%;width:1600px;height:900px;transform-origin:center center;background:var(--bg)}
+.slide{position:absolute;inset:0;padding:96px 120px 110px;display:flex;flex-direction:column;opacity:0;visibility:hidden;transition:opacity .45s ease,visibility 0s linear .45s}
+.slide.on{opacity:1;visibility:visible;transition:opacity .45s ease}
+.slide > *{transform:translateY(14px);transition:transform .6s cubic-bezier(.2,.7,.2,1)}
+.slide.on > *{transform:none}
+.kick{font-size:24px;font-weight:600;color:var(--muted);margin:0 0 18px;display:flex;align-items:center;gap:14px}
+.kick:before{content:"";width:12px;height:12px;border-radius:50%;background:var(--gold)}
+h1{font-size:112px;line-height:1.02;letter-spacing:-.045em;margin:0;font-weight:700}
+h2{font-size:68px;line-height:1.06;letter-spacing:-.04em;margin:0 0 40px;font-weight:700}
+h1 .b,h2 .b{color:var(--brand)}
+.lead{font-size:34px;line-height:1.35;color:var(--muted);margin:36px 0 0;max-width:1200px}
+.lead b{color:var(--fg)}
+.foot{position:absolute;left:120px;right:120px;bottom:44px;display:flex;justify-content:space-between;font-size:18px;color:var(--faint);border-top:2px solid var(--gold);padding-top:14px;transform:none!important}
+.foot b{color:var(--brand);font-weight:600}
+.src{font-size:20px;color:var(--faint);margin-top:auto;line-height:1.4}
+/* problem */
+.nums{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:8px}
+.num{background:var(--bg2);border-radius:36px;padding:44px 48px}
+.num .v{font-size:150px;font-weight:700;letter-spacing:-.05em;line-height:.95;color:var(--brand)}
+.num p{font-size:32px;line-height:1.3;color:var(--muted);margin:18px 0 0}
+.num p b{color:var(--fg)}
+/* thesis */
+.thesis{justify-content:center}
+.thesis h1{font-size:136px}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px}
+.three div{border-top:3px solid var(--fg);padding-top:20px;font-size:28px;line-height:1.3;color:var(--muted)}
+.three div.x{border-top:3px dashed var(--amber)}
+.three div.p{border-top-color:var(--brand)}
+.three b{display:block;color:var(--fg);font-size:32px;margin-bottom:6px}
+/* video */
+.vid{padding:56px 80px 100px}
+.vid .kick{margin-bottom:14px}
+.vbox{flex:1;min-height:0;background:#000;border-radius:28px;overflow:hidden;position:relative}
+.vbox video{width:100%;height:100%;object-fit:contain;display:block;background:#000}
+.vmiss{position:absolute;inset:0;display:none;place-content:center;text-align:center;color:#f5f5f7;font-size:30px;line-height:1.5;padding:40px}
+.vmiss code{color:var(--gold);font-size:26px}
+.vbox.missing .vmiss{display:grid}
+.vbox.missing video{display:none}
+/* evidence */
+.ev{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.ev div{background:var(--bg2);border-radius:28px;padding:30px 28px;display:flex;flex-direction:column;gap:10px}
+.ev .v{font-size:52px;font-weight:700;letter-spacing:-.04em;line-height:1}
+.ev .w{font-size:23px;font-weight:600;line-height:1.25}
+.ev .d,.ev .n{font-size:20px;line-height:1.35;color:var(--muted)}
+.ev .n{border-top:1px solid var(--line);padding-top:10px}
+.ev .n i{font-style:normal;font-weight:600;color:var(--fg)}
+.ours{margin-top:20px;background:var(--amber-bg);border-radius:24px;padding:22px 30px;font-size:24px;line-height:1.35;color:var(--fg)}
+.ours b{color:var(--amber)}
+/* rows */
+.rows{list-style:none;padding:0;margin:0;display:grid;gap:0}
+.rows li{display:grid;grid-template-columns:1fr 1.25fr;gap:40px;padding:22px 0;border-bottom:1px solid var(--line);font-size:26px;line-height:1.35;color:var(--muted)}
+.rows li:first-child{border-top:1px solid var(--line)}
+.rows li b{color:var(--fg);font-size:30px;font-weight:600}
+.tag{display:inline-block;margin-left:12px;font-size:18px;font-weight:700;color:var(--brand);vertical-align:4px;letter-spacing:.02em;text-transform:uppercase}
+/* ask */
+.ask{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.ask div{border-radius:32px;padding:40px 44px;background:var(--bg2)}
+.ask h3{font-size:40px;margin:0 0 14px;letter-spacing:-.02em}
+.ask p{font-size:27px;line-height:1.38;color:var(--muted);margin:0}
+.close{margin-top:56px;font-size:46px;line-height:1.2;font-weight:700;letter-spacing:-.03em}
+.close span{color:var(--brand)}
+/* chrome */
+#timer{position:fixed;top:14px;right:16px;z-index:9;font:600 18px/1 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;color:#d6d6d6;background:rgba(0,0,0,.55);padding:8px 12px;border-radius:10px;display:none;font-variant-numeric:tabular-nums}
+#timer.on{display:block}
+#timer.warn{color:#1d1d1f;background:#f0c46c}
+#hint{position:fixed;left:16px;bottom:12px;z-index:9;font-size:13px;color:#9a9a9f;opacity:.85;transition:opacity 1s}
+#hint.gone{opacity:0}
+#prog{position:fixed;left:0;bottom:0;height:3px;background:var(--gold);z-index:9;transition:width .4s}
+@media (prefers-reduced-motion:reduce){.slide,.slide > *{transition:none!important;transform:none!important}}
+/* print: one slide per 16:9 page, for the PDF backup */
+@page{size:1600px 900px;margin:0}
+@media print{
+  html,body{height:auto;overflow:visible;background:#fff}
+  #stage{position:static;transform:none!important;width:1600px;height:auto;background:none}
+  .slide{position:relative;width:1600px;height:900px;opacity:1;visibility:visible;break-after:page;page-break-after:always;background:var(--bg)}
+  .slide > *{transform:none}
+  #timer,#hint,#prog{display:none!important}
+  .vbox video{display:none}
+  .vbox .vmiss.print{display:grid}
+  .vbox .vmiss:not(.print){display:none!important}
+}
+.vmiss.print{display:none}
+</style>
+</head>
+<body>
+<div id="stage">
+
+<section class="slide">
+  <p class="kick">El problema · universitarios peruanos</p>
+  <h2>El malestar es común.<br><span class="b">Llegar a ayuda, no.</span></h2>
+  <div class="nums">
+    <div class="num"><div class="v">24 %</div><p>en nivel <b>alto</b> de síntomas de ansiedad y depresión.</p></div>
+    <div class="num"><div class="v">50 %</div><p>en nivel <b>moderado</b>. Juntos, <b>tres de cada cuatro</b>.</p></div>
+  </div>
+  <p class="src">Valle-Palomino et al. 2024, BMC Psychology · 1 243 estudiantes de 6 universidades de Piura · muestreo probabilístico · son niveles de una escala, no diagnósticos.</p>
+  <div class="foot"><span><b>Pulso</b> UPCH · Hackathon FACI 2026 · Reto 3</span><span class="pg"></span></div>
+</section>
+
+<section class="slide thesis">
+  <p class="kick">La tesis</p>
+  <h1>No detectamos estrés.<br><span class="b">Acortamos el camino.</span></h1>
+  <div class="three">
+    <div><b>SISCO</b>Medida principal, validada en 628 universitarios de Lima.</div>
+    <div class="x"><b>Tecleo</b>Señal exploratoria, rotulada en pantalla. Solo contigo mismo.</div>
+    <div class="p"><b>Una persona</b>Un clic al servicio que la UPCH ya tiene.</div>
+  </div>
+  <div class="foot"><span><b>Pulso</b> UPCH · Hackathon FACI 2026 · Reto 3</span><span class="pg"></span></div>
+</section>
+
+<section class="slide vid" data-video>
+  <p class="kick">Demo · corre entera en el navegador, sin servidor</p>
+  <div class="vbox">
+    <video id="v" src="../demo/pulso-demo.mp4" muted controls playsinline preload="metadata"></video>
+    <div class="vmiss">Falta el video <code>demo/pulso-demo.mp4</code><br>Plan B: demo en vivo en ichisieben.github.io/pulso-upch/demo/</div>
+    <div class="vmiss print">Video de la demo (4:30)<br>En vivo: ichisieben.github.io/pulso-upch/demo/</div>
+  </div>
+  <div class="foot"><span><b>Pulso</b> UPCH · Hackathon FACI 2026 · Reto 3</span><span class="pg"></span></div>
+</section>
+
+<section class="slide">
+  <p class="kick">Lo que la evidencia dice y lo que no</p>
+  <h2 style="margin-bottom:26px">Nuestra idea original <span class="b">no se sostenía.</span></h2>
+  <div class="ev">
+    <div><span class="v">ρ = 0,078</span><span class="w">Tecleo → estrés, entre personas.</span><span class="d">Casi azar. 36 empleados, 8 semanas.</span><span class="n"><i>No dice</i> que nunca servirá.</span></div>
+    <div><span class="v">3,3 %</span><span class="w">sigue usando una app de salud mental al mes.</span><span class="d">93 apps.</span><span class="n"><i>Por eso</i> medimos el puente, no el uso.</span></div>
+    <div><span class="v" style="white-space:nowrap">28 → 58 %</span><span class="w">creyó tener un trastorno tras informarse.</span><span class="d">La educación nocebo redujo el aumento a la mitad.</span><span class="n"><i>No dice</i> que dure: es TDAH, una semana.</span></div>
+    <div><span class="v">Predecir ≠&nbsp;ayudar</span><span class="w">La alerta acertó; el abandono no bajó.</span><span class="d">Experimento aleatorizado, Países Bajos.</span><span class="n"><i>Por eso</i> medimos el tiempo hasta una consulta.</span></div>
+  </div>
+  <p class="ours">Y la misma vara para nosotros: el detector acierta <b>90 de 90</b> en datos sintéticos, porque el cambio lo construimos grande. Si lo achicamos a un tercio, detecta <b>3 de 30</b>. Viabilidad técnica, no validez clínica.</p>
+  <p class="src" style="margin-top:14px">Naegelin et al. 2025 · Baumel et al. 2019 · Sandra et al. 2025 · Plak et al. 2022 · detalle en docs/evidencia.md</p>
+  <div class="foot"><span><b>Pulso</b> UPCH · Hackathon FACI 2026 · Reto 3</span><span class="pg"></span></div>
+</section>
+
+<section class="slide">
+  <p class="kick">Indicadores del piloto</p>
+  <h2>Medimos el puente y el daño. <span class="b">No la precisión.</span></h2>
+  <ul class="rows">
+    <li><b>Tiempo hasta la primera consulta atendida<span class="tag">primario</span></b><span>Días entre la derivación en la app y la cita asistida, contra la línea base del servicio.</span></li>
+    <li><b>Conversión a cita asistida</b><span>Citas asistidas / derivaciones, a 14 días.</span></li>
+    <li><b>Retención real a 30 días</b><span>Se declara aunque sea mala. Referente: 3,3 %.</span></li>
+    <li><b>Estrés pre/post</b><span>SISCO al inicio y a las 8 semanas, por intención de tratar.</span></li>
+    <li><b>Autoetiquetado y daño iatrogénico</b><span>"Creo que tengo un problema de salud mental", antes y después.</span></li>
+  </ul>
+  <div class="foot"><span><b>Pulso</b> UPCH · Hackathon FACI 2026 · Reto 3</span><span class="pg"></span></div>
+</section>
+
+<section class="slide">
+  <p class="kick">Qué pedimos</p>
+  <h2>Dos cosas que no tenemos, <span class="b">dichas claro.</span></h2>
+  <div class="ask">
+    <div><h3>Convenio con Bienestar Estudiantil</h3><p>Propuesto, no coordinado. Un canal de citas para el botón y la línea base del tiempo hasta la primera consulta. Hoy el botón lleva a la página pública de Bienestar.</p></div>
+    <div><h3>Comité de ética</h3><p>Protocolo, consentimiento y evaluación de riesgos ante el Comité Institucional de Ética de la UPCH. Aún no presentado. Sin eso no hay piloto.</p></div>
+  </div>
+  <p class="close">Pulso UPCH no diagnostica. <span>Acorta el camino hasta una persona.</span></p>
+  <div class="foot"><span><b>Pulso</b> UPCH · ichisieben.github.io/pulso-upch</span><span class="pg"></span></div>
+</section>
+
+</div>
+<div id="timer" aria-live="off">00:00</div>
+<div id="hint">← → o clic para avanzar · F pantalla completa · T temporizador · R reiniciar tiempo · en el video, espacio = reproducir/pausar</div>
+<div id="prog"></div>
+<script>
+const stage = document.getElementById('stage')
+const slides = [...document.querySelectorAll('.slide')]
+const video = document.getElementById('v')
+const timer = document.getElementById('timer')
+let i = 0
+
+slides.forEach((s, k) => s.querySelector('.pg').textContent = (k + 1) + ' / ' + slides.length)
+
+function fit() {
+  const k = Math.min(innerWidth / 1600, innerHeight / 900)
+  stage.style.transform = `translate(-50%, -50%) scale(${k})`
+}
+addEventListener('resize', fit); fit()
+
+function go(n) {
+  n = Math.max(0, Math.min(slides.length - 1, n))
+  slides[i].classList.remove('on')
+  if (slides[i].hasAttribute('data-video')) video.pause()
+  i = n
+  slides[i].classList.add('on')
+  if (slides[i].hasAttribute('data-video') && !video.closest('.vbox').classList.contains('missing')) video.play().catch(() => {})
+  document.getElementById('prog').style.width = ((i + 1) / slides.length * 100) + '%'
+  history.replaceState(null, '', '#' + (i + 1))
+}
+const start = parseInt(location.hash.slice(1), 10)
+i = Number.isFinite(start) ? Math.max(0, Math.min(slides.length - 1, start - 1)) : 0
+go(i)
+
+video.addEventListener('error', () => video.closest('.vbox').classList.add('missing'))
+
+// Timer: elapsed time since first shown (T), amber from 7:00. Hard cut is 8:00.
+let t0 = null, tick = null
+function fmt(ms) { const s = Math.floor(ms / 1000); return String(Math.floor(s / 60)).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0') }
+function draw() { const ms = Date.now() - t0; timer.textContent = fmt(ms); timer.classList.toggle('warn', ms >= 7 * 60 * 1000) }
+function toggleTimer() {
+  if (t0 === null) { t0 = Date.now(); tick = setInterval(draw, 250); draw() }
+  timer.classList.toggle('on')
+}
+function resetTimer() { if (t0 !== null) { t0 = Date.now(); draw() } }
+
+function full() {
+  if (document.fullscreenElement) document.exitFullscreen()
+  else document.documentElement.requestFullscreen().catch(() => {})
+}
+
+addEventListener('keydown', e => {
+  if (e.altKey || e.ctrlKey || e.metaKey) return
+  const k = e.key
+  const onVideo = slides[i].hasAttribute('data-video')
+  if (onVideo && k === ' ') { e.preventDefault(); video.paused ? video.play() : video.pause(); return }
+  if (['ArrowRight', 'PageDown', ' ', 'Enter'].includes(k)) { e.preventDefault(); go(i + 1) }
+  else if (['ArrowLeft', 'PageUp', 'Backspace'].includes(k)) { e.preventDefault(); go(i - 1) }
+  else if (k === 'Home') go(0)
+  else if (k === 'End') go(slides.length - 1)
+  else if (k === 'f' || k === 'F') full()
+  else if (k === 't' || k === 'T') toggleTimer()
+  else if (k === 'r' || k === 'R') resetTimer()
+  hint.classList.add('gone')
+})
+addEventListener('click', e => {
+  if (e.target.closest('video, a, button')) return
+  hint.classList.add('gone')
+  go(e.clientX < innerWidth / 3 ? i - 1 : i + 1)
+})
+const hint = document.getElementById('hint')
+setTimeout(() => hint.classList.add('gone'), 6000)
+</script>
+</body>
+</html>
