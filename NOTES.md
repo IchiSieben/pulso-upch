@@ -1,5 +1,18 @@
 # NOTES — Pulso UPCH
 
+## 2026-11-08 · Maratón V3 (7 fases, sesión autónoma)
+
+**Hecho.** Investigación con 5 agentes y un verificador independiente (solo las cifras ✅
+pasaron a evidencia); PRODUCTO_V3; rediseño de la demo (mascota como guía, tema, check-in de
+3 toques, puente y Línea 113 siempre visibles), la landing y las slides; ARQUITECTURA_V3
+con el piloto; video de 4:29 grabado con Playwright; guion con los tiempos reales;
+preguntas 14–19; one-pager. QA: Lighthouse a11y 100 ×3, pytest 9 passed, E2E sin fallos.
+**Decidido** (detalle en `docs/DECISIONES.md`): la mascota no se vende como retención
+(E31–E33). La pregunta rotativa del SISCO va tal cual. El video, en Python. Evans 2018,
+descartado.
+**Pendiente.** Nombres del equipo, URL de consejería, línea base de Bienestar, confirmar
+Hostinger, snapshot en Drive, ensayo cronometrado.
+
 ## 2026-11-07 (noche) · Paleta Cayetano, movimiento, slides y guion de 8:00
 
 **Hecho.** 3 correcciones de texto; paleta granate/dorado con AA verificado

@@ -115,3 +115,14 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
     aporte a la UPCH.
   - **One-pager:** `docs/one-pager.pdf`, de una página A4, generado desde
     `docs/one-pager.html` con `python -I tools/one_pager_pdf.py`.
+- **2026-11-08 · Maratón, Fase 7 (calidad).** Comprobado sobre la versión publicada (commit
+  `489dc4f` en Pages):
+  - **Lighthouse (móvil):** accesibilidad 100 en la landing, la demo y las slides.
+  - **Pruebas:** `pytest` 9 passed, `contrast.py` con 0 fallos, E2E de la demo contra la URL
+    pública sin fallos.
+  - **Enlaces:** 53 revisados; todos los DOI están registrados en doi.org salvo
+    `10.1145/3821685` (Schütz 2026), que aún no resuelve y ahora enlaza al preprint de arXiv.
+  - **SEO de las slides:** sigue en 50 porque el deck lleva `noindex` a propósito. Se añadió
+    la meta descripción.
+  - **Hostinger:** no se pudo confirmar. Su URL no figura en el repo y los conectores de
+    Hostinger no estaban disponibles en esta sesión; queda pendiente.
