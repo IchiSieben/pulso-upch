@@ -95,3 +95,14 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   - **La versión visual va en la landing**, en las secciones "De la demo al piloto", "Un
     proyecto para toda Cayetano" y "Hacia dónde va". Entró en el commit de la Fase 3
     porque el agente de la landing trabajó con este documento ya escrito.
+- **2026-11-08 · Maratón, Fase 5 (video).** `demo/pulso-demo.mp4`: 4:29, 1920×1080, 30 fps,
+  H.264 yuv420p, faststart, sin audio, 9,4 MB. Se grabó con Playwright **en Python**
+  (`tools/video/record_demo.py`) y no en `.mjs`, porque en esta máquina no está instalado
+  Playwright para Node y el de Python ya tiene sus navegadores.
+  - **Orden de las escenas:** "Tus datos" va después de "Hablar con alguien" y no después
+    de la escritura. Así sigue el flujo real de la app y no hay que saltar pantallas.
+  - **Botón "Hablar con alguien":** en el video se señala con el cursor, pero no se pulsa,
+    porque abriría una página externa y la grabación es solo local.
+  - **Duración:** un factor `SPEED = 1.17` lleva la toma a unos 4:30.
+  - **Regenerar:** `python -I tools/video/record_demo.py` (y `--preview` para una pasada
+    rápida con capturas). Al regenerarlo se reescribe `docs/video-timestamps.md`.
