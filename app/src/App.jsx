@@ -438,7 +438,7 @@ function Bridge() {
       <p className="lead">La UPCH tiene un servicio de bienestar para sus estudiantes. Un clic y estás ahí. No se le envía ningún resultado de esta app.</p>
       <a className="primary" href={COUNSELING_URL} target="_blank" rel="noopener noreferrer">Quiero orientación</a>
       {!COUNSELING_CONFIRMED && <p className="fine pending">Enlace a Bienestar Estudiantil UPCH. El canal directo de consejería psicológica está <b>pendiente de confirmar</b> con la universidad.</p>}
-      <p className="fine">Si estás en peligro o piensas en hacerte daño, llama a la Línea 113, opción 5 (salud mental, MINSA), o acude a emergencias.</p>
+      <p className="fine">Si estás en peligro o piensas en hacerte daño, llama a la Línea 113 del MINSA (salud mental, gratuita, las 24 horas) o acude a emergencias.</p>
     </section>
   )
 }
