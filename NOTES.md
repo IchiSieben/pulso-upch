@@ -1,5 +1,16 @@
 # NOTES — Pulso UPCH
 
+## 2026-11-07 (noche) · Paleta Cayetano, movimiento, slides y guion de 8:00
+
+**Hecho.** 3 correcciones de texto; paleta granate/dorado con AA verificado
+(`tools/contrast.py`); movimiento con IntersectionObserver y tarjetas de referencias; deck en
+`expo/` con PDF; guion reescrito para 8:00 con el video en mute narrado.
+**Decidido** (detalle en `docs/DECISIONES.md`): el granate es solo marca, nunca estado. Lo
+que marca "tú" en la demo pasó a neutro. `--faint` se oscureció porque daba 3,6:1. El build
+ya no vacía `demo/`. El temporizador arranca con T, no al cargar.
+**Pendiente.** Subir `demo/pulso-demo.mp4` y ajustar los tiempos del guion; nombres del
+equipo; URL de consejería; ensayo.
+
 ## 2026-11-07 · Giro a la versión de presentación (docs/interno/BRIEF_V2.md)
 
 **Hecho.** Los 7 puntos del brief V2. Ver HANDOFF.md para el detalle y la verificación.

@@ -4,7 +4,7 @@
      Granate is identity, never danger: change states stay soft amber. Checked with tools/contrast.py. */
   --bg: #ffffff; --bg2: #f5f5f7; --fg: #1d1d1f; --muted: #5a5a5f; --faint: #6e6e73;
   --accent: #B03437; --brand: #B03437; --brand-fg: #ffffff; --gold: #F3C72D; --line: rgba(0, 0, 0, .08);
-  --amber-bg: #fdf6e7; --amber: #8a5d00; --amber-dot: #d99a1e; --calm: #2f7d5b; --you: #B03437;
+  --amber-bg: #fdf6e7; --amber: #8a5d00; --amber-dot: #d99a1e; --calm: #2f7d5b; --you: #1d1d1f;
   --track: #e8e8ed; --cope: #6e8f7c;
   color-scheme: light;
 }
@@ -12,14 +12,14 @@
   :root:not([data-theme="light"]) {
     --bg: #000000; --bg2: #161617; --fg: #f5f5f7; --muted: #a1a1a6; --faint: #8e8e93;
     --accent: #F08A8C; --brand: #B03437; --brand-fg: #ffffff; --gold: #F3C72D; --line: rgba(255, 255, 255, .1);
-    --amber-bg: #2a2214; --amber: #f0c46c; --amber-dot: #e3a83c; --calm: #6cc79a; --you: #F08A8C;
+    --amber-bg: #2a2214; --amber: #f0c46c; --amber-dot: #e3a83c; --calm: #6cc79a; --you: #f5f5f7;
     --track: #2c2c2e; --cope: #8fb3a0; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --bg: #000000; --bg2: #161617; --fg: #f5f5f7; --muted: #a1a1a6; --faint: #8e8e93;
   --accent: #F08A8C; --brand: #B03437; --brand-fg: #ffffff; --gold: #F3C72D; --line: rgba(255, 255, 255, .1);
-  --amber-bg: #2a2214; --amber: #f0c46c; --amber-dot: #e3a83c; --calm: #6cc79a; --you: #F08A8C;
+  --amber-bg: #2a2214; --amber: #f0c46c; --amber-dot: #e3a83c; --calm: #6cc79a; --you: #f5f5f7;
   --track: #2c2c2e; --cope: #8fb3a0; color-scheme: dark;
 }
 
@@ -151,7 +151,7 @@ input[type=number] { max-width: 200px; }
 .line { fill: none; stroke: var(--muted); stroke-width: 1.5; }
 .dot { fill: var(--muted); }
 .dot.flag, .k.flag { fill: var(--amber-dot); background: var(--amber-dot); }
-.dot.you, .k.you { fill: var(--you); background: var(--you); }
+.dot.you, .k.you { fill: var(--you); background: var(--you); stroke: var(--bg); stroke-width: 1.5; }
 .lbl { fill: var(--faint); font-size: 14px; }
 .k { display: inline-block; width: 9px; height: 9px; border-radius: 50%; vertical-align: middle; margin: 0 2px 0 4px; }
 figcaption { font-size: 13px; color: var(--faint); line-height: 1.45; margin-top: 8px; }
