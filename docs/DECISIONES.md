@@ -58,3 +58,11 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   contrario para capturas pesadas; aquí son ~12 PNG). La Línea 113, opción 5, sale de
   Andina (agencia estatal), porque gob.pe rechazó la consulta automática (E35). Revertir:
   `git revert` del commit `fase-1`.
+- **2026-11-08 · Maratón, Fase 2 (producto).** `docs/PRODUCTO_V3.md`. El plan decía "la
+  mascota entra"; la evidencia (1C) dice que no hay prueba de que mejore la primera semana
+  y que la gamificación no mejora la adherencia (E31, E32). Se resolvió así: la mascota
+  entra como **guía del flujo**, se puede apagar, crece solo con hitos de uso, no tiene
+  estados de ánimo ni rachas, y se presenta como **hipótesis a medir** (días 1–7 con y sin
+  mascota), nunca como retención. La pregunta rotativa del check-in se muestra con la
+  redacción publicada del SISCO ("este semestre"), sin adaptarla a "hoy". Revertir: la
+  preferencia `mascot` a `false` por defecto en `app/src/prefs.js`.
