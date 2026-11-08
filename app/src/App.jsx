@@ -23,7 +23,7 @@ export default function App() {
   const [data, setData] = useState(store.load)
   const [step, setStep] = useState(data.consent ? 'panel' : 'inicio')
   const [notice, setNotice] = useState('')
-  useEffect(() => store.save(data), [data])
+  useEffect(() => { if (data.consent || data.sisco.length || data.sessions.length) store.save(data) }, [data])
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [step])
   const go = s => { setNotice(''); setStep(s) }
   const consent = data.consent || {}
@@ -376,7 +376,7 @@ function LoadBars({ thisWeek }) {
 }
 
 function Chart({ days, result, feature }) {
-  const W = 640, H = 240, L = 44, R = 12, T = 16, B = 30
+  const W = 460, H = 250, L = 46, R = 8, T = 18, B = 30
   const vals = days.map(d => Number(d[feature]))
   const st = result.stats?.[feature]
   const lo = st ? st.median - Z_THRESHOLD * st.spread : Math.min(...vals)
@@ -392,7 +392,7 @@ function Chart({ days, result, feature }) {
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`${FEATURE_LABEL[feature]} por día`}>
         {st && <rect x={L} y={y(hi)} width={W - L - R} height={y(lo) - y(hi)} className="band" />}
         <line x1={x(BASELINE_DAYS - 0.5)} x2={x(BASELINE_DAYS - 0.5)} y1={T} y2={H - B} className="split" />
-        <text x={L + 6} y={T + 12} className="lbl">tu línea base · días 1–14</text>
+        <text x={L + 6} y={T + 12} className="lbl">tu línea base</text>
         <text x={x(BASELINE_DAYS - 0.5) + 6} y={T + 12} className="lbl">evaluación</text>
         {st && <><text x={L - 6} y={y(hi) + 4} className="lbl" textAnchor="end">{fmt(hi)}</text><text x={L - 6} y={y(lo) + 4} className="lbl" textAnchor="end">{fmt(lo)}</text></>}
         <path d={path} className="line" />
