@@ -18,7 +18,7 @@ def test_python_js_parity(tmp_path):
     f.write_text(json.dumps(cases))
     out = subprocess.run(["node", str(ROOT / "tests/parity.mjs"), str(f),
                           str(ROOT / "app/src/detector.js")],
-                         capture_output=True, text=True, check=True).stdout
+                         capture_output=True, text=True, encoding="utf-8", check=True).stdout
     js = json.loads(out)
     assert len(js) == len(cases)
     for days, j in zip(cases, js):

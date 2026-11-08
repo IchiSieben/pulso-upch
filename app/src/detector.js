@@ -49,11 +49,12 @@ export function evaluate(daysIn, baselineDays = BASELINE_DAYS, runLength = RUN_L
   return { state: best >= runLength ? STATE_CHANGE : STATE_OK, longest_run: best, flags, z, stats }
 }
 
+// PHRASES[f] = [text when z < 0, text when z > 0].
 // Descriptive summary of what moved during the latest atypical run (never a clinical claim).
 const PHRASES = {
   wpm: ['escribiste más lento', 'escribiste más rápido'],
-  iki_mean_ms: ['hiciste pausas más largas entre teclas', 'hiciste pausas más cortas entre teclas'],
-  iki_sd_ms: ['tu ritmo fue más irregular', 'tu ritmo fue más parejo'],
+  iki_mean_ms: ['hiciste pausas más cortas entre teclas', 'hiciste pausas más largas entre teclas'],
+  iki_sd_ms: ['tu ritmo fue más parejo', 'tu ritmo fue más irregular'],
   backspace_rate: ['borraste menos', 'borraste más'],
   session_s: ['escribiste durante menos tiempo', 'escribiste durante más tiempo'],
 }
