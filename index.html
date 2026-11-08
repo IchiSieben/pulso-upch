@@ -96,6 +96,26 @@ pre b{color:var(--fg);font-weight:600}
 footer{max-width:692px;margin:96px auto 0;padding:32px 22px 56px;border-top:1px solid var(--line);font-size:13px;color:var(--faint)}
 footer p{margin:6px 0}
 @media (max-width:560px){section{padding-top:64px}.hero{padding-top:64px}.stats{grid-template-columns:1fr}.stat.wide{grid-column:auto}.bar nav{display:none}.ev dl{grid-template-columns:1fr;gap:2px}.ev dd{margin-bottom:8px}.diagram{margin-left:-8px;margin-right:-8px;padding:16px 6px}}
+/* references */
+.refs{list-style:none;padding:0;margin:20px 0 0;display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.refs li{background:var(--bg2);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:4px}
+.refs .au{margin:0;font-weight:600;font-size:16px;line-height:1.3}
+.refs .yr{margin:0;font-size:13px;color:var(--faint)}
+.refs .ad{margin:8px 0 0;font-size:15px;line-height:1.42;color:var(--muted);flex:1}
+.refs a{margin-top:10px;font-size:13px;text-decoration:none}
+.refs a:after{content:" ›"}
+/* motion: only when JS runs and the user has not asked for reduced motion */
+.mo .rv{opacity:0;transform:translateY(24px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.mo .rv.in{opacity:1;transform:none}
+.mo .diagram [data-st]{opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s cubic-bezier(.2,.7,.2,1)}
+.mo .diagram.in [data-st]{opacity:1;transform:none}
+.mo .diagram.in [data-st="2"]{transition-delay:.4s}.mo .diagram.in [data-st="3"]{transition-delay:.8s}
+.mo .diagram.in [data-st="4"]{transition-delay:1.3s}.mo .diagram.in [data-st="5"]{transition-delay:1.7s}
+.mo .diagram.in [data-st="6"]{transition-delay:2.1s}.mo .diagram.in [data-st="7"]{transition-delay:2.6s}
+.mo .sweep span.t b{transition:transform 1.1s cubic-bezier(.2,.7,.2,1) .2s;transform-origin:left;transform:scaleX(0)}
+.mo .ours.in .sweep span.t b{transform:none}
+.big [data-count]{font-variant-numeric:tabular-nums}
+@media (max-width:560px){.refs{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
 </head>
@@ -139,22 +159,22 @@ footer p{margin:6px 0}
   <div class="diagram">
     <svg viewBox="0 0 360 652" role="group" aria-label="Diagrama de arquitectura de Pulso UPCH">
       <defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="var(--faint)"/></marker></defs>
-      <g class="n primary" data-k="sisco" tabindex="0" role="button" aria-label="Inventario SISCO"><rect x="6" y="14" width="110" height="78" rx="16"/><text x="61" y="42" text-anchor="middle">SISCO</text><text class="s" x="61" y="60" text-anchor="middle">medida principal</text><text class="s" x="61" y="75" text-anchor="middle">validada</text></g>
-      <g class="n" data-k="cal" tabindex="0" role="button" aria-label="Carga del calendario"><rect x="125" y="14" width="110" height="78" rx="16"/><text x="180" y="42" text-anchor="middle">Calendario</text><text class="s" x="180" y="60" text-anchor="middle">carga académica</text><text class="s" x="180" y="75" text-anchor="middle">observable</text></g>
-      <g class="n exp" data-k="typing" tabindex="0" role="button" aria-label="Dinámica de tecleo"><rect x="244" y="14" width="110" height="78" rx="16"/><text x="299" y="42" text-anchor="middle">Tecleo</text><text class="s" x="299" y="60" text-anchor="middle">señal</text><text class="s" x="299" y="75" text-anchor="middle">exploratoria</text></g>
-      <path class="arr" d="M61 92V172" marker-end="url(#ah)"/><path class="arr" d="M180 92V254" marker-end="url(#ah)"/><path class="arr" d="M299 92V172" marker-end="url(#ah)"/>
-      <g class="n box" data-k="browser" tabindex="0" role="button" aria-label="Tu navegador"><rect x="4" y="122" width="352" height="214" rx="22"/><text x="180" y="146" text-anchor="middle">Tu navegador</text><text class="s" x="180" y="162" text-anchor="middle">todo se calcula aquí · nada sale</text></g>
-      <g class="n" data-k="score" tabindex="0" role="button" aria-label="Puntaje por subescala"><rect x="16" y="176" width="150" height="62" rx="14"/><text x="91" y="202" text-anchor="middle">Puntaje SISCO</text><text class="s" x="91" y="220" text-anchor="middle">media por subescala, 1–5</text></g>
-      <g class="n exp" data-k="detector" tabindex="0" role="button" aria-label="Detector intra-sujeto"><rect x="194" y="176" width="150" height="62" rx="14"/><text x="269" y="202" text-anchor="middle">Detector</text><text class="s" x="269" y="220" text-anchor="middle">tú vs. tus días 1–14</text></g>
-      <g class="n" data-k="store" tabindex="0" role="button" aria-label="Almacenamiento local"><rect x="16" y="258" width="328" height="64" rx="14"/><text x="180" y="284" text-anchor="middle">Almacenamiento local</text><text class="s" x="180" y="302" text-anchor="middle">solo números · nunca texto · exportar · borrar</text></g>
-      <path class="arr" d="M180 336V364" marker-end="url(#ah)"/>
-      <g class="n" data-k="panel" tabindex="0" role="button" aria-label="Panel personal"><rect x="6" y="366" width="348" height="58" rx="16"/><text x="180" y="391" text-anchor="middle">Panel personal</text><text class="s" x="180" y="409" text-anchor="middle">tu semana vs. tu línea base + tu carga</text></g>
-      <path class="arr" d="M110 424V454" marker-end="url(#ah)"/><path class="arr" d="M250 424V454" marker-end="url(#ah)"/>
-      <g class="n" data-k="ok" tabindex="0" role="button" aria-label="Sin cambios relevantes"><rect x="6" y="456" width="164" height="70" rx="16"/><text x="88" y="484" text-anchor="middle">Sin cambios</text><text class="s" x="88" y="502" text-anchor="middle">"escribes como sueles"</text></g>
-      <g class="n amber" data-k="nocebo" tabindex="0" role="button" aria-label="Cambio sostenido con educación nocebo"><rect x="190" y="456" width="164" height="70" rx="16"/><text x="272" y="480" text-anchor="middle">Cambio sostenido</text><text class="s" x="272" y="498" text-anchor="middle">+ educación nocebo</text><text class="s" x="272" y="513" text-anchor="middle">en el mismo bloque</text></g>
-      <path class="arr" d="M88 526V556" marker-end="url(#ah)"/><path class="arr" d="M272 526V556" marker-end="url(#ah)"/>
-      <g class="n bridge" data-k="bridge" tabindex="0" role="button" aria-label="Puente a una persona"><rect x="6" y="558" width="348" height="58" rx="29"/><text x="180" y="583" text-anchor="middle">Hablar con una persona</text><text class="s" x="180" y="601" text-anchor="middle">un clic · voluntario · sin enviar resultados al servidor</text></g>
-      <g class="n none" data-k="noserver" tabindex="0" role="button" aria-label="No hay servidor"><rect x="100" y="626" width="160" height="24" rx="12"/><text x="180" y="642" text-anchor="middle" class="s">no hay servidor</text></g>
+      <g data-st="1" class="n primary" data-k="sisco" tabindex="0" role="button" aria-label="Inventario SISCO"><rect x="6" y="14" width="110" height="78" rx="16"/><text x="61" y="42" text-anchor="middle">SISCO</text><text class="s" x="61" y="60" text-anchor="middle">medida principal</text><text class="s" x="61" y="75" text-anchor="middle">validada</text></g>
+      <g data-st="2" class="n" data-k="cal" tabindex="0" role="button" aria-label="Carga del calendario"><rect x="125" y="14" width="110" height="78" rx="16"/><text x="180" y="42" text-anchor="middle">Calendario</text><text class="s" x="180" y="60" text-anchor="middle">carga académica</text><text class="s" x="180" y="75" text-anchor="middle">observable</text></g>
+      <g data-st="3" class="n exp" data-k="typing" tabindex="0" role="button" aria-label="Dinámica de tecleo"><rect x="244" y="14" width="110" height="78" rx="16"/><text x="299" y="42" text-anchor="middle">Tecleo</text><text class="s" x="299" y="60" text-anchor="middle">señal</text><text class="s" x="299" y="75" text-anchor="middle">exploratoria</text></g>
+      <path data-st="1" class="arr" d="M61 92V172" marker-end="url(#ah)"/><path data-st="2" class="arr" d="M180 92V254" marker-end="url(#ah)"/><path data-st="3" class="arr" d="M299 92V172" marker-end="url(#ah)"/>
+      <g data-st="4" class="n box" data-k="browser" tabindex="0" role="button" aria-label="Tu navegador"><rect x="4" y="122" width="352" height="214" rx="22"/><text x="180" y="146" text-anchor="middle">Tu navegador</text><text class="s" x="180" y="162" text-anchor="middle">todo se calcula aquí · nada sale</text></g>
+      <g data-st="4" class="n" data-k="score" tabindex="0" role="button" aria-label="Puntaje por subescala"><rect x="16" y="176" width="150" height="62" rx="14"/><text x="91" y="202" text-anchor="middle">Puntaje SISCO</text><text class="s" x="91" y="220" text-anchor="middle">media por subescala, 1–5</text></g>
+      <g data-st="4" class="n exp" data-k="detector" tabindex="0" role="button" aria-label="Detector intra-sujeto"><rect x="194" y="176" width="150" height="62" rx="14"/><text x="269" y="202" text-anchor="middle">Detector</text><text class="s" x="269" y="220" text-anchor="middle">tú vs. tus días 1–14</text></g>
+      <g data-st="5" class="n" data-k="store" tabindex="0" role="button" aria-label="Almacenamiento local"><rect x="16" y="258" width="328" height="64" rx="14"/><text x="180" y="284" text-anchor="middle">Almacenamiento local</text><text class="s" x="180" y="302" text-anchor="middle">solo números · nunca texto · exportar · borrar</text></g>
+      <path data-st="5" class="arr" d="M180 336V364" marker-end="url(#ah)"/>
+      <g data-st="5" class="n" data-k="panel" tabindex="0" role="button" aria-label="Panel personal"><rect x="6" y="366" width="348" height="58" rx="16"/><text x="180" y="391" text-anchor="middle">Panel personal</text><text class="s" x="180" y="409" text-anchor="middle">tu semana vs. tu línea base + tu carga</text></g>
+      <path data-st="6" class="arr" d="M110 424V454" marker-end="url(#ah)"/><path data-st="6" class="arr" d="M250 424V454" marker-end="url(#ah)"/>
+      <g data-st="6" class="n" data-k="ok" tabindex="0" role="button" aria-label="Sin cambios relevantes"><rect x="6" y="456" width="164" height="70" rx="16"/><text x="88" y="484" text-anchor="middle">Sin cambios</text><text class="s" x="88" y="502" text-anchor="middle">"escribes como sueles"</text></g>
+      <g data-st="6" class="n amber" data-k="nocebo" tabindex="0" role="button" aria-label="Cambio sostenido con educación nocebo"><rect x="190" y="456" width="164" height="70" rx="16"/><text x="272" y="480" text-anchor="middle">Cambio sostenido</text><text class="s" x="272" y="498" text-anchor="middle">+ educación nocebo</text><text class="s" x="272" y="513" text-anchor="middle">en el mismo bloque</text></g>
+      <path data-st="7" class="arr" d="M88 526V556" marker-end="url(#ah)"/><path data-st="7" class="arr" d="M272 526V556" marker-end="url(#ah)"/>
+      <g data-st="7" class="n bridge" data-k="bridge" tabindex="0" role="button" aria-label="Puente a una persona"><rect x="6" y="558" width="348" height="58" rx="29"/><text x="180" y="583" text-anchor="middle">Hablar con una persona</text><text class="s" x="180" y="601" text-anchor="middle">un clic · voluntario · sin enviar resultados al servidor</text></g>
+      <g data-st="7" class="n none" data-k="noserver" tabindex="0" role="button" aria-label="No hay servidor"><rect x="100" y="626" width="160" height="24" rx="12"/><text x="180" y="642" text-anchor="middle" class="s">no hay servidor</text></g>
     </svg>
     <div class="info" id="info" aria-live="polite"><h3>Toca un bloque</h3><p>Cada bloque explica qué hace, qué no hace y en qué archivo vive.</p></div>
     <div class="legend"><span><i></i>validada</span><span><i class="e"></i>exploratoria</span><span><i class="a"></i>mensaje con educación nocebo</span></div>
@@ -166,13 +186,13 @@ footer p{margin:6px 0}
   <h2>Revisamos la evidencia de nuestra propia idea. No se sostenía.</h2>
   <p class="lead">Nuestra primera versión prometía detectar cambios conductuales con el tecleo. Esto es lo que encontramos, y lo que decidimos por eso.</p>
   <ul class="ev">
-    <li><div class="big">ρ = 0,078</div><p class="what">El tecleo predice estrés entre personas casi como el azar.</p>
+    <li><div class="big">ρ = <span data-count="0.078" data-dec="3">0,078</span></div><p class="what">El tecleo predice estrés entre personas casi como el azar.</p>
       <dl><dt>Dice</dt><dd>36 empleados, 8 semanas, 3 574 etiquetas. El error de los mejores modelos es similar o mayor que predecir la media. Personalizado: ρ = 0,188.</dd><dt>No dice</dt><dd>Que nunca servirá. Dice que hoy no sirve para uso real.</dd><dt>Decidimos</dt><dd class="dec">El tecleo es <b>exploratorio y lo dice en pantalla</b>. La medida principal es el SISCO.</dd></dl>
       <p class="src">Naegelin et al. 2025 · <a href="https://doi.org/10.1101/2025.08.02.25332538">medRxiv</a></p></li>
     <li><div class="big">R² = 0,005</div><p class="what">El tecleo sí cambia con la dificultad, pero no predice lo que la persona siente.</p>
       <dl><dt>Dice</dt><dd>n = 36. Tarea difícil: +6,27 pausas &gt; 1 s; +46,93 ms entre teclas. Predecir la valoración subjetiva: R² = 0,005.</dd><dt>No dice</dt><dd>Nada sobre estrés clínico ni estudiantes: la tarea era escribir a un LLM.</dd><dt>Decidimos</dt><dd class="dec">El tecleo refleja <b>carga impuesta</b>. Por eso medimos la carga directamente: el calendario.</dd></dl>
       <p class="src">Schütz et al. 2026 · PACM-HCI · <a href="https://doi.org/10.1145/3821685">DOI</a></p></li>
-    <li><div class="big">3,3 %</div><p class="what">sigue usando una app de salud mental a los 30 días.</p>
+    <li><div class="big"><span data-count="3.3" data-dec="1">3,3</span> %</div><p class="what">sigue usando una app de salud mental a los 30 días.</p>
       <dl><dt>Dice</dt><dd>93 apps, mediana de 100 000 instalaciones. 3,9 % a 15 días; apertura diaria 4,0 %.</dd><dt>No dice</dt><dd>Cómo retiene una app con puente a un servicio real.</dd><dt>Decidimos</dt><dd class="dec">El valor se entrega <b>la primera semana</b>. El indicador principal es el puente, no el uso. La retención se declara aunque sea mala.</dd></dl>
       <p class="src">Baumel et al. 2019 · JMIR · <a href="https://doi.org/10.2196/14567">DOI</a></p></li>
     <li><div class="big">Predecir ≠ ayudar</div><p class="what">Una alerta temprana acertó, y la consejería que disparó no redujo el abandono.</p>
@@ -184,7 +204,7 @@ footer p{margin:6px 0}
     <li><div class="big">9 de 19</div><p class="what">participantes analizados en el estudio fundacional de tecleo y ánimo.</p>
       <dl><dt>Dice</dt><dd>BiAffect (trastorno bipolar): 64 observaciones, R² marginal 0,41, sin AUC reportado. Una revisión de 24 estudios (9 801 personas) señala falta de validación externa.</dd><dt>Decidimos</dt><dd class="dec">No citamos ninguna precisión de la literatura como si fuera nuestra.</dd></dl>
       <p class="src">Zulueta et al. 2018 · <a href="https://doi.org/10.2196/jmir.9775">JMIR</a> · Leaning et al. 2024 · <a href="https://doi.org/10.1016/j.neubiorev.2024.105541">DOI</a></p></li>
-    <li><div class="big">628</div><p class="what">universitarios de Lima validaron el SISCO, nuestra medida principal.</p>
+    <li><div class="big"><span data-count="628" data-dec="0">628</span></div><p class="what">universitarios de Lima validaron el SISCO, nuestra medida principal.</p>
       <dl><dt>Dice</dt><dd>31 ítems; modelos de 3 y 5 factores con buen ajuste; invarianza por sexo; ρ de Jöreskog 0,82 / 0,88 / 0,69.</dd><dt>No dice</dt><dd>Puntos de corte clínicos. El SISCO no diagnostica.</dd><dt>Decidimos</dt><dd class="dec">Reportamos la media por subescala, <b>sin niveles inventados</b>.</dd></dl>
       <p class="src">Manrique-Millones, Millones-Rivalles &amp; Manrique-Pino 2019 · Ansiedad y Estrés · <a href="https://doi.org/10.1016/j.anyes.2019.03.001">DOI</a></p></li>
   </ul>
@@ -200,6 +220,22 @@ footer p{margin:6px 0}
     </div>
     <p class="fine">Tamaño del cambio sintético frente a corridas detectadas. Cero falsos positivos en el escenario estable. Viabilidad técnica, no validez clínica. Reproducible: <code>python model/train_eval.py</code></p>
   </div>
+  <h3 style="margin-top:56px">Las fuentes, una por una</h3>
+  <p class="fine" style="margin-top:0">Autor, año, revista y qué aporta al proyecto.</p>
+  <ul class="refs">
+    <li><p class="au">Naegelin, Weibel, Kerr et al.</p><p class="yr">2025 · medRxiv (preprint)</p><p class="ad">El dato central: entre personas, el tecleo predice estrés con ρ = 0,078. Por eso el tecleo es exploratorio.</p><a href="https://doi.org/10.1101/2025.08.02.25332538">Fuente</a></li>
+    <li><p class="au">Schütz, Cherif, Sayffaerth, Weber &amp; Chiossi</p><p class="yr">2026 · Proc. ACM Hum.-Comput. Interact.</p><p class="ad">El tecleo cambia con la dificultad de la tarea, pero no predice lo que se siente (R² = 0,005). Por eso medimos la carga.</p><a href="https://doi.org/10.1145/3821685">Fuente</a></li>
+    <li><p class="au">Manrique-Millones, Millones-Rivalles &amp; Manrique-Pino</p><p class="yr">2019 · Ansiedad y Estrés</p><p class="ad">Validación del SISCO en 628 universitarios de Lima. Es nuestra medida principal.</p><a href="https://doi.org/10.1016/j.anyes.2019.03.001">Fuente</a></li>
+    <li><p class="au">Sandra et al.</p><p class="yr">2025 · Psychological Medicine</p><p class="ad">Informar puede inducir autodiagnóstico; la educación nocebo redujo el aumento a la mitad. Por eso va en cada mensaje.</p><a href="https://doi.org/10.1017/S0033291725101979">Fuente</a></li>
+    <li><p class="au">Plak et al.</p><p class="yr">2022 · Higher Education Quarterly</p><p class="ad">Una alerta temprana que acierta no basta para ayudar. Por eso medimos el tiempo hasta una consulta.</p><a href="https://doi.org/10.1111/hequ.12298">Fuente</a></li>
+    <li><p class="au">Baumel et al.</p><p class="yr">2019 · J. Med. Internet Res.</p><p class="ad">Retención mediana de 3,3 % a 30 días en apps de salud mental. Por eso el valor va en la primera semana.</p><a href="https://doi.org/10.2196/14567">Fuente</a></li>
+    <li><p class="au">Valle-Palomino et al.</p><p class="yr">2024 · BMC Psychology</p><p class="ad">24 % en nivel alto y 50 % en moderado de síntomas en 1 243 universitarios de Piura: la magnitud del problema.</p><a href="https://doi.org/10.1186/s40359-024-02272-w">Fuente</a></li>
+    <li><p class="au">Healthy Minds Network</p><p class="yr">2025 · Data Report 2024-25 (EE. UU.)</p><p class="ad">Cerca de 6 de cada 10 con síntomas recibe tratamiento, y las barreras no son de detección.</p><a href="https://healthpolicy.ucla.edu/our-work/publications/healthy-minds-study-2024-2025-data-report">Fuente</a></li>
+    <li><p class="au">Lahme et al.</p><p class="yr">2024 · arXiv (preprint)</p><p class="ad">Carga percibida y estrés van juntos (r = 0,62). Sustenta la capa del calendario.</p><a href="https://arxiv.org/abs/2404.05682">Fuente</a></li>
+    <li><p class="au">Zulueta et al.</p><p class="yr">2018 · J. Med. Internet Res.</p><p class="ad">El estudio fundacional de tecleo y ánimo analizó 9 personas: no prueba que funcione.</p><a href="https://doi.org/10.2196/jmir.9775">Fuente</a></li>
+    <li><p class="au">Leaning et al.</p><p class="yr">2024 · Neurosci. Biobehav. Rev.</p><p class="ad">24 estudios de fenotipado digital en depresión, con falta de validación externa.</p><a href="https://doi.org/10.1016/j.neubiorev.2024.105541">Fuente</a></li>
+    <li><p class="au">Boluarte-Carbajal et al.</p><p class="yr">2023 · Frontiers in Psychology</p><p class="ad">Escala de Estrés Percibido en Lima: dos puntajes, no uno. La alternativa documentada al SISCO.</p><a href="https://doi.org/10.3389/fpsyg.2023.1160466">Fuente</a></li>
+  </ul>
   <p class="fine">Todas las cifras, verificadas contra la fuente primaria, con sus matices: <a href="https://github.com/IchiSieben/pulso-upch/blob/master/docs/evidencia.md">docs/evidencia.md</a>.</p>
 </section>
 
@@ -272,7 +308,7 @@ const INFO = {
   noserver: ['Servidor: no existe en la demo', 'Existe un backend FastAPI opcional para un piloto, con esquema estricto que rechaza texto. La demo no lo usa ni lo necesita.', 'backend/main.py (opcional)'],
 }
 const info = document.getElementById('info')
-const nodes = document.querySelectorAll('.n')
+const nodes = document.querySelectorAll('svg .n[data-k]')
 function show(el) {
   nodes.forEach(n => n.classList.toggle('on', n === el))
   const [t, p, w] = INFO[el.dataset.k]
@@ -285,6 +321,37 @@ nodes.forEach(n => {
   n.addEventListener('focus', () => show(n))
   n.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); show(n) } })
 })
+
+// Motion: scroll reveals, diagram build-up, count-ups. Skipped entirely under prefers-reduced-motion.
+;(function () {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !('IntersectionObserver' in window)) return
+  document.documentElement.classList.add('mo')
+  const fmt = (v, d) => v.toFixed(d).replace('.', ',')
+  function count(el) {
+    const end = parseFloat(el.dataset.count), d = +el.dataset.dec, t0 = performance.now(), dur = 1400
+    const step = now => {
+      const k = Math.min(1, (now - t0) / dur), e = 1 - Math.pow(1 - k, 3)
+      el.textContent = fmt(end * e, d)
+      if (k < 1) requestAnimationFrame(step); else el.textContent = fmt(end, d)
+    }
+    el.textContent = fmt(0, d); requestAnimationFrame(step)
+  }
+  const io = new IntersectionObserver(es => es.forEach(en => {
+    if (!en.isIntersecting) return
+    const el = en.target
+    el.classList.add('in')
+    el.querySelectorAll('[data-count]').forEach(count)
+    io.unobserve(el)
+  }), { threshold: 0.15, rootMargin: '0px 0px -6% 0px' })
+  document.querySelectorAll('main section > :not(ul):not(.stats):not(.diagram), .stats > .stat, .ev > li, .rows > li, .refs > li').forEach(el => {
+    el.classList.add('rv')
+    if (el.parentElement.matches('ul, .stats')) el.style.transitionDelay = ([...el.parentElement.children].indexOf(el) % 4) * 70 + 'ms'
+    io.observe(el)
+  })
+  const dia = document.querySelector('.diagram')
+  const dio = new IntersectionObserver(es => es.forEach(en => { if (en.isIntersecting) { dia.classList.add('in'); dio.disconnect() } }), { threshold: 0.25 })
+  dio.observe(dia)
+})()
 </script>
 </body>
 </html>
