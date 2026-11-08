@@ -8,6 +8,8 @@ tiene.** Reto 3 — Hackathon FACI 2026, Universidad Peruana Cayetano Heredia.
 - Ficha técnica: [`docs/ficha-tecnica.md`](docs/ficha-tecnica.md) · PDF:
   [`docs/Reto3_PulsoUPCH.pdf`](docs/Reto3_PulsoUPCH.pdf)
 - Evidencia citada, con lo que dice y lo que no: [`docs/evidencia.md`](docs/evidencia.md)
+- Slides de exposición (8:00 con video de la demo): https://ichisieben.github.io/pulso-upch/expo/ ·
+  respaldo [`expo/pulso-upch-expo.pdf`](expo/pulso-upch-expo.pdf)
 - Kit de exposición: [`docs/guion-exposicion.md`](docs/guion-exposicion.md) ·
   [`docs/preguntas-dificiles.md`](docs/preguntas-dificiles.md) ·
   [`docs/arquitectura.md`](docs/arquitectura.md)
