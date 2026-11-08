@@ -39,7 +39,7 @@ a { color: var(--accent); }
 .brand { font-weight: 600; letter-spacing: -0.02em; }
 .brand b { font-weight: 600; color: var(--muted); }
 .bar-note { color: var(--muted); font-size: 12px; }
-.progress { height: 2px; background: var(--line); }
+.progress { height: 2px; background: var(--line); overflow: hidden; }
 .progress span { display: block; height: 100%; background: var(--accent); transition: width .5s ease; }
 
 main { max-width: 692px; margin: 0 auto; padding: 0 22px 40px; }

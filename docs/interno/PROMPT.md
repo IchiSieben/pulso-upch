@@ -1,3 +1,5 @@
+> **Documento interno de trabajo, reemplazado.** El enfoque vigente está en el README y en `docs/evidencia.md`; las cifras de este texto se corrigieron contra sus fuentes allí.
+
 # PROMPT — Pulso UPCH (Hackathon FACI 2026)
 
 Estás en la raíz del proyecto. Haz `git init` aquí. Se entrega HOY, en menos de 20

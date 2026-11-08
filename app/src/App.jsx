@@ -25,6 +25,8 @@ export default function App() {
   const [notice, setNotice] = useState('')
   useEffect(() => { if (data.consent || data.sisco.length || data.sessions.length) store.save(data) }, [data])
   useEffect(() => { window.scrollTo({ top: 0, behavior: 'smooth' }) }, [step])
+  // Reaching the panel without the self-report step must still keep the typing measurement.
+  useEffect(() => { if (step === 'panel' && data.pending) setData(d => (d.pending ? commitSession(d, {}) : d)) }, [step, data.pending])
   const go = s => { setNotice(''); setStep(s) }
   const consent = data.consent || {}
   const next = from => {
@@ -68,7 +70,7 @@ function commitSession(d, rep) {
 
 function Progress({ step }) {
   const i = STEPS.indexOf(step)
-  return <div className="progress" aria-hidden="true"><span style={{ width: `${(Math.max(0, i) / (STEPS.length - 2)) * 100}%` }} /></div>
+  return <div className="progress" aria-hidden="true"><span style={{ width: `${Math.min(1, Math.max(0, i) / (STEPS.length - 2)) * 100}%` }} /></div>
 }
 
 /* ---------- 0 · Intro ---------- */

@@ -22,3 +22,7 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   pendiente de confirmar". Revertir: `VITE_COUNSELING_URL` al compilar.
 - **2026-11-07 · Despliegue.** Demo estática en `demo/` (GitHub Pages), datos en
   `localStorage`. El backend FastAPI se conserva como opcional y la demo no lo usa.
+- **2026-11-07 · Documentos de trabajo.** `PROMPT.md` (brief v1) y `BRIEF_V2.md` se movieron a
+  `docs/interno/` con un encabezado "reemplazado". Por qué: el repo es público y la página
+  enlaza al código; la raíz debe mostrar solo el enfoque vigente. No se borra nada (el
+  historial los conserva igual). Revertir: `git mv docs/interno/*.md .`

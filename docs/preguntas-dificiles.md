@@ -115,3 +115,11 @@ compare consigo mismo."
 > las citas contra sus fuentes. Esa verificación nos corrigió varias cifras del borrador; las
 > correcciones están en la tabla de evidencia. Las decisiones y la revisión son del equipo.
 > El detector en sí no es IA generativa: es una regla estadística transparente."
+
+### 13. "¿Por qué la demo abre directamente en el mensaje de 'cambio sostenido'?"
+
+> "Para mostrar en pocos segundos cómo está diseñado el mensaje, que es la parte más
+> delicada. Un estudiante real no vería eso al empezar: durante sus primeros 14 días la app
+> está 'construyendo tu línea base' y no compara nada. Como en una demo nadie tiene 14 días
+> de historia, usamos 20 días sintéticos, rotulados en pantalla, y los botones permiten ver
+> también los escenarios 'estable' y 'un día distinto'."

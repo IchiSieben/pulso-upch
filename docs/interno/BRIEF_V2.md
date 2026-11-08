@@ -1,3 +1,5 @@
+> **Documento interno de trabajo, reemplazado.** El enfoque vigente está en el README y en `docs/evidencia.md`; las cifras de este texto se corrigieron contra sus fuentes allí.
+
 # BRIEF V2 — Pulso UPCH · versión de presentación
 
 > Este documento reemplaza el enfoque anterior del proyecto. Léelo entero antes de
