@@ -26,3 +26,12 @@ if __name__ == "__main__":
     r = evaluate(generate("sustained", seed=7))
     print("\nEjemplo (sostenido, seed 7): flags por día =",
           "".join("X" if f else "." for f in r["flags"]), "| racha máx =", r["longest_run"])
+
+    # Sensitivity sweep: how big must the (synthetic) shift be before the rule sees it?
+    # 1.0 = the default shift (about 5 baseline SDs on wpm). Real changes may be far smaller.
+    print("\nBarrido de sensibilidad (escenario sostenido, 30 semillas):")
+    for k in (0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0):
+        hit = sum(evaluate(generate("sustained", seed=s, shift_scale=k))["state"] == STATE_CHANGE
+                  for s in SEEDS)
+        fp = sum(evaluate(generate("stable", seed=s))["state"] == STATE_CHANGE for s in SEEDS)
+        print(f"  escala {k:4.2f}: detectado {hit:2d}/30 · falsos positivos en estable {fp}/30")

@@ -21,17 +21,17 @@ SHIFT = dict(wpm=-11.0, iki_mean_ms=95.0, iki_sd_ms=50.0, backspace_rate=0.06,
              session_s=-40.0, rest_hours=-2.4, energy_1_5=-1.8)
 
 
-def _day(rng, shifted):
+def _day(rng, shifted, scale=1.0):
     row = {}
     for f in FEATURES:
-        v = BASE[f] + rng.normal(0, NOISE[f]) + (SHIFT[f] if shifted else 0.0)
+        v = BASE[f] + rng.normal(0, NOISE[f]) + (SHIFT[f] * scale if shifted else 0.0)
         row[f] = v
     row["energy_1_5"] = int(np.clip(round(row["energy_1_5"]), 1, 5))
     row["backspace_rate"] = float(np.clip(row["backspace_rate"], 0, 1))
     return {k: (round(v, 3) if isinstance(v, float) else v) for k, v in row.items()}
 
 
-def generate(scenario: str, seed: int = 7):
+def generate(scenario: str, seed: int = 7, shift_scale: float = 1.0):
     rng = np.random.default_rng(seed)
     if scenario == "stable":
         atypical = set()
@@ -41,7 +41,7 @@ def generate(scenario: str, seed: int = 7):
         atypical = set(range(16, 21))
     else:
         raise ValueError(scenario)
-    return [{"day": d + 1, "synthetic": True, **_day(rng, d in atypical)} for d in range(DAYS)]
+    return [{"day": d + 1, "synthetic": True, **_day(rng, d in atypical, shift_scale)} for d in range(DAYS)]
 
 
 if __name__ == "__main__":
