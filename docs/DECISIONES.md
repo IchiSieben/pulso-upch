@@ -135,3 +135,8 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
     pasan contra ella.
   - **Video revisado a velocidad real** en 3:05, 3:15, 3:35, 3:55, 4:08 y 4:18: se ven los
     cuatro bloques del cambio, la tarjeta del puente y la confirmación del borrado.
+- **2026-11-08 · Respaldo en Drive.** Snapshot del commit `6fcb838` con `git archive`, así
+  que no lleva `.git`, `.env` ni archivos sin seguimiento (por ejemplo, `docs/handoffs/`, que
+  no es de esta sesión). Se subió con `rclone copy` a
+  `Gdrive:01-Trabajo/Portfolio/pulso-upch/2026-11-08/`: 107 archivos, 15,3 MiB, y
+  `rclone check` dio 0 diferencias. `drive.manifest` lista ruta, tamaño, sha256 y fecha.

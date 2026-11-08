@@ -191,3 +191,8 @@ criterio ético y las decisiones son del equipo, que revisó el contenido.
 
 Código: MIT. El Inventario SISCO es obra de Arturo Barraza Macías; se reproduce con fines
 académicos no comerciales y con cita.
+
+## Respaldo
+
+Snapshot por publicación en `Gdrive:01-Trabajo/Portfolio/pulso-upch/<fecha>/` (sin `.git` ni
+`.env`). El inventario, con tamaño y sha256 de cada archivo, está en [`drive.manifest`](drive.manifest).
