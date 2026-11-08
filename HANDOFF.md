@@ -4,7 +4,8 @@
 - Demo: https://ichisieben.github.io/pulso-upch/demo/ · Slides: https://ichisieben.github.io/pulso-upch/expo/
   · PDF de respaldo: https://ichisieben.github.io/pulso-upch/expo/pulso-upch-expo.pdf
 - Video: https://ichisieben.github.io/pulso-upch/demo/pulso-demo.mp4 · One-pager: `docs/one-pager.pdf`
-- Última sesión: 2026-11-08. Commit final: ver el último de `git log` (tags `fase-1` … `fase-7`).
+- Última sesión: 2026-11-08. Último cambio de código publicado: `489dc4f` (verificado en Pages).
+  Tags `fase-1` … `fase-7`. Snapshot en Drive: `Gdrive:01-Trabajo/Portfolio/pulso-upch/2026-11-08/`.
 
 ## Para el dueño, en 10 líneas
 
@@ -39,9 +40,12 @@
     - nombres del equipo (Persona 1/2/3);
     - URL real de consejería (no existe una pública; la 1E solo halló una noticia de 2023);
     - la línea base de Bienestar (el 5 % del tamaño muestral es un supuesto);
-    - la URL de Hostinger, que no está en el repo: confirma que el auto-deploy sirve el
-      último commit;
-    - el snapshot en Drive y `drive.manifest`.
+    - **Hostinger no sirve este proyecto.** Ningún sitio de la cuenta lo publica; solo
+      GitHub Pages. Para publicarlo, crear `pulso.ichisieben.dev` (comando en
+      DECISIONES);
+    - `docs/ficha-tecnica.md` y `docs/Reto3_PulsoUPCH.pdf` todavía describen el flujo V2
+      (autorreporte, sin check-in ni mascota): actualizar y regenerar con
+      `tools/ficha_pdf.py`.
 
 ## 2026-11-08 · Maratón V3: qué hay y dónde
 
@@ -60,7 +64,9 @@ Comandos:
 - `python -m pytest tests backend -q`;
 - `python tools/contrast.py`;
 - `python -I tools/one_pager_pdf.py`;
-- `python -I tools/video/record_demo.py [--preview]`.
+- `python -I tools/video/record_demo.py [--preview]`;
+- `python -I tools/qa/e2e_demo.py [BASE_URL]`, `tools/qa/expo_test.py` y `tools/qa/landing_test.py`
+  (por defecto, contra la URL pública).
 
 ---
 

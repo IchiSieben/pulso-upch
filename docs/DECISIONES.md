@@ -124,5 +124,14 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
     `10.1145/3821685` (Schütz 2026), que aún no resuelve y ahora enlaza al preprint de arXiv.
   - **SEO de las slides:** sigue en 50 porque el deck lleva `noindex` a propósito. Se añadió
     la meta descripción.
-  - **Hostinger:** no se pudo confirmar. Su URL no figura en el repo y los conectores de
-    Hostinger no estaban disponibles en esta sesión; queda pendiente.
+  - **Hostinger:** consultado con el conector de Hostinger (solo lectura). Ninguno de los 10
+    sitios de la cuenta sirve Pulso UPCH: no hay subdominio `pulso*` y
+    `ichisieben.dev/pulso-upch/` da 404. Hoy el auto-deploy publica solo en GitHub Pages.
+    No se creó ningún sitio, porque publicar en un dominio nuevo requiere el OK del dueño.
+    Si se quiere: crear `pulso.ichisieben.dev` y conectarlo al repo con `hosting_deploy`
+    (git `IchiSieben/pulso-upch`, rama `master`, tipo `static`).
+  - **Pruebas en el repo:** los scripts de QA pasaron a `tools/qa/` (`e2e_demo.py`,
+    `expo_test.py`, `landing_test.py`). Por defecto apuntan a la URL pública, y las tres
+    pasan contra ella.
+  - **Video revisado a velocidad real** en 3:05, 3:15, 3:35, 3:55, 4:08 y 4:18: se ven los
+    cuatro bloques del cambio, la tarjeta del puente y la confirmación del borrado.
