@@ -106,3 +106,12 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   - **Duración:** un factor `SPEED = 1.17` lleva la toma a unos 4:30.
   - **Regenerar:** `python -I tools/video/record_demo.py` (y `--preview` para una pasada
     rápida con capturas). Al regenerarlo se reescribe `docs/video-timestamps.md`.
+- **2026-11-08 · Maratón, Fase 6 (guion y material).**
+  - **Guion** (`docs/guion-exposicion.md`): reescrito con los tiempos reales del video
+    (4:29). Las cifras se leen completas ("catorce coma cuatro"), sin redondear.
+  - **Preguntas difíciles** (`docs/preguntas-dificiles.md`): la 9 ahora da el tamaño
+    muestral con sus supuestos. Se añadieron de la 14 a la 19: mascota, cifras de Perú
+    frente a las de EE. UU., crisis, por qué no se avisa a Bienestar, sostenibilidad y
+    aporte a la UPCH.
+  - **One-pager:** `docs/one-pager.pdf`, de una página A4, generado desde
+    `docs/one-pager.html` con `python -I tools/one_pager_pdf.py`.
