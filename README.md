@@ -101,7 +101,8 @@ clínica.** La versión anterior con Isolation Forest sigue en `model/detector_i
   Exportar descarga tus datos en JSON; borrar los elimina y lo puedes comprobar.
 - **Consentimiento granular**: cada capa (inventario, tecleo, autorreporte) se acepta por
   separado y se puede omitir.
-- **No se notifica a nadie.** El botón de orientación abre el canal de la universidad y no le
+- **No se notifica a nadie.** El botón de orientación lleva a la página pública de Bienestar
+  Estudiantil de la UPCH (el canal directo de consejería está pendiente de confirmar) y no le
   transmite ningún resultado.
 - El backend opcional (`backend/main.py`) rechaza cualquier campo no numérico (`extra="forbid"`,
   HTTP 422): no puede recibir texto aunque se intente. Probado en `backend/test_api.py`.

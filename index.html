@@ -53,7 +53,7 @@ h3{margin:0 0 6px;font-size:21px;line-height:1.2;font-weight:600;letter-spacing:
 .n.primary rect{stroke:var(--fg);stroke-width:2}
 .n.box > rect{fill:none;pointer-events:all;stroke:var(--faint);stroke-dasharray:2 5}
 .n.bridge rect{fill:var(--accent)}.n.bridge text{fill:var(--accent-fg)}.n.bridge text.s{fill:var(--accent-fg);opacity:.85}
-.n.none rect{fill:none;stroke:var(--faint);stroke-dasharray:3 4}.n.none text{fill:var(--faint);text-decoration:line-through}
+.n.none rect{fill:none;stroke:var(--faint);stroke-dasharray:3 4}.n.none text{fill:var(--faint)}
 .n:hover rect,.n:focus-visible rect,.n.on rect{stroke:var(--accent);stroke-width:2.5}
 .n.box:hover > rect,.n.box.on > rect{stroke:var(--accent);stroke-dasharray:none}
 .arr{stroke:var(--faint);stroke-width:1.5;fill:none}
@@ -149,8 +149,8 @@ footer p{margin:6px 0}
       <g class="n" data-k="ok" tabindex="0" role="button" aria-label="Sin cambios relevantes"><rect x="6" y="456" width="164" height="70" rx="16"/><text x="88" y="484" text-anchor="middle">Sin cambios</text><text class="s" x="88" y="502" text-anchor="middle">"escribes como sueles"</text></g>
       <g class="n amber" data-k="nocebo" tabindex="0" role="button" aria-label="Cambio sostenido con educación nocebo"><rect x="190" y="456" width="164" height="70" rx="16"/><text x="272" y="480" text-anchor="middle">Cambio sostenido</text><text class="s" x="272" y="498" text-anchor="middle">+ educación nocebo</text><text class="s" x="272" y="513" text-anchor="middle">en el mismo bloque</text></g>
       <path class="arr" d="M88 526V556" marker-end="url(#ah)"/><path class="arr" d="M272 526V556" marker-end="url(#ah)"/>
-      <g class="n bridge" data-k="bridge" tabindex="0" role="button" aria-label="Puente a una persona"><rect x="6" y="558" width="348" height="58" rx="29"/><text x="180" y="583" text-anchor="middle">Hablar con una persona</text><text class="s" x="180" y="601" text-anchor="middle">un clic · voluntario · sin enviar resultados</text></g>
-      <g class="n none" data-k="noserver" tabindex="0" role="button" aria-label="No hay servidor"><rect x="100" y="626" width="160" height="24" rx="12"/><text x="180" y="642" text-anchor="middle" class="s">servidor</text></g>
+      <g class="n bridge" data-k="bridge" tabindex="0" role="button" aria-label="Puente a una persona"><rect x="6" y="558" width="348" height="58" rx="29"/><text x="180" y="583" text-anchor="middle">Hablar con una persona</text><text class="s" x="180" y="601" text-anchor="middle">un clic · voluntario · sin enviar resultados al servidor</text></g>
+      <g class="n none" data-k="noserver" tabindex="0" role="button" aria-label="No hay servidor"><rect x="100" y="626" width="160" height="24" rx="12"/><text x="180" y="642" text-anchor="middle" class="s">no hay servidor</text></g>
     </svg>
     <div class="info" id="info" aria-live="polite"><h3>Toca un bloque</h3><p>Cada bloque explica qué hace, qué no hace y en qué archivo vive.</p></div>
     <div class="legend"><span><i></i>validada</span><span><i class="e"></i>exploratoria</span><span><i class="a"></i>mensaje con educación nocebo</span></div>
@@ -215,7 +215,7 @@ return { wpm, iki_mean_ms, iki_sd_ms, backspace_rate, session_s }</pre>
     <li><h3>Ver el código exacto</h3><p><a href="https://github.com/IchiSieben/pulso-upch/blob/master/app/src/keystroke.js#L6-L18">keystroke.js, líneas 6–18</a>: captura sin contenido. <a href="https://github.com/IchiSieben/pulso-upch/blob/master/app/src/keystroke.js#L33-L40">Líneas 33–40</a>: solo salen cinco números.</p></li>
     <li><h3>Sin servidor</h3><p>La demo guarda todo en el navegador. Exportar descarga un JSON; borrar lo elimina y se puede comprobar.</p></li>
     <li><h3>Consentimiento granular</h3><p>Inventario, tecleo y autorreporte se activan por separado. Cualquiera se puede omitir.</p></li>
-    <li><h3>No se notifica a nadie</h3><p>El botón de orientación abre el canal de la universidad y no le envía ningún resultado.</p></li>
+    <li><h3>No se notifica a nadie</h3><p>El botón de orientación lleva a la página pública de Bienestar Estudiantil de la UPCH (el canal directo de consejería está pendiente de confirmar) y no le envía ningún resultado.</p></li>
     <li><h3>Si hubiera servidor</h3><p>El backend opcional rechaza cualquier campo que no sea numérico (<a href="https://github.com/IchiSieben/pulso-upch/blob/master/backend/main.py#L29-L40">main.py, <code>extra="forbid"</code></a>): un texto devuelve HTTP 422 y no toca el disco. Probado en <code>backend/test_api.py</code>.</p></li>
   </ul>
 </section>
@@ -228,7 +228,7 @@ return { wpm, iki_mean_ms, iki_sd_ms, backspace_rate, session_s }</pre>
     <li><h3>Conversión derivación → cita asistida</h3><p>Citas asistidas / derivaciones, seguimiento a 14 días, denominador explícito.</p></li>
     <li><h3>Retención real a 30 días</h3><p>Usuarios con al menos una sesión entre los días 23 y 30 / cohorte inicial. Se declara aunque sea mala; el referente es 3,3 %.</p></li>
     <li><h3>Estrés pre/post a 8 semanas</h3><p>SISCO al inicio y a las 8 semanas, por intención de tratar, imputando a quienes abandonan.</p></li>
-    <li><h3>Autoetiquetado y daño iatrogénico <span class="tagp">daño</span></h3><p>Ítem "creo que tengo un problema de salud mental" (1–5) pre/post, como en Sandra et al. 2025, más la tasa de falsos positivos.</p></li>
+    <li><h3>Autoetiquetado y daño iatrogénico</h3><p>Ítem "creo que tengo un problema de salud mental" (1–5) pre/post, como en Sandra et al. 2025, más la tasa de falsos positivos.</p></li>
     <li><h3>Confianza y vigilancia percibida</h3><p>Porcentaje que elige compartir con Bienestar frente a mantenerlo privado; tasa de abandono del consentimiento.</p></li>
   </ul>
 </section>
@@ -264,7 +264,7 @@ const INFO = {
   panel: ['Panel personal', 'Tres lecturas en orden de confianza: SISCO (validada), carga (observable), tecleo (exploratoria). En la demo, la historia de 20 días es sintética y está rotulada; el día 21 es la prueba real del estudiante.', 'app/src/App.jsx · Panel'],
   ok: ['Sin cambios relevantes', 'Un día distinto aislado no cambia nada: una mala noche o otro teclado no son una señal. El mensaje aclara que tampoco dice nada sobre la salud.', 'app/src/App.jsx'],
   nocebo: ['Cambio sostenido + educación nocebo', 'Cuatro bloques del mismo peso: qué cambió (descriptivo), que es normal que cambie, que no es un diagnóstico y qué es el efecto nocebo. Informar puede generar autodiagnóstico falso; educar sobre el nocebo redujo ese aumento a la mitad (Sandra et al. 2025). Color ámbar suave, nunca rojo de alarma.', 'app/src/App.jsx · ChangeMessage'],
-  bridge: ['Hablar con una persona · el producto real', 'Un clic al servicio de bienestar de la UPCH, siempre visible y voluntario. No se envía ningún resultado. Es lo que medimos en el piloto: el tiempo hasta una consulta atendida. Convenio: propuesto, no coordinado.', 'app/src/App.jsx · Bridge'],
+  bridge: ['Hablar con una persona · el producto real', 'Un clic a la página pública de Bienestar Estudiantil de la UPCH (el canal directo de consejería está pendiente de confirmar), siempre visible y voluntario. No se envía ningún resultado. Es lo que medimos en el piloto: el tiempo hasta una consulta atendida. Convenio: propuesto, no coordinado.', 'app/src/App.jsx · Bridge'],
   noserver: ['Servidor: no existe en la demo', 'Existe un backend FastAPI opcional para un piloto, con esquema estricto que rechaza texto. La demo no lo usa ni lo necesita.', 'backend/main.py (opcional)'],
 }
 const info = document.getElementById('info')
