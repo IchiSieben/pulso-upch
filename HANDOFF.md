@@ -2,7 +2,7 @@
 
 - Repo: https://github.com/IchiSieben/pulso-upch · Página: https://ichisieben.github.io/pulso-upch/
 - Demo pública, sin servidor: https://ichisieben.github.io/pulso-upch/demo/
-- Última sesión: 2026-11-07. Commit de cierre: ver `git log -1` (el anterior a este archivo es `e0312e8`).
+- Última sesión: 2026-11-07. Código verificado en vivo en `9ac2e02`.
 
 ## Estado: los 7 puntos del brief V2 §7 están hechos
 
@@ -28,7 +28,9 @@
   30 % → 3/30, 0 falsos positivos).
 - E2E con Playwright contra la URL pública (390×844, claro y oscuro): flujo completo, sin
   errores de consola, sin texto en localStorage, borrado deja localStorage vacío, sin scroll
-  horizontal.
+  horizontal; y los caminos de consentimiento parcial (sin autorreporte, sin SISCO, sin tecleo).
+- Corregido tras la primera verificación: con el autorreporte desactivado se perdía la prueba
+  de escritura; la barra de progreso causaba scroll horizontal en "Tus datos".
 
 ## Pendiente
 - **URL del canal de consejería UPCH**: no se encontró página pública específica. El botón va
@@ -37,4 +39,4 @@
 - Nombres reales del equipo en el guion (hoy "A/B/C").
 - Ensayo cronometrado el domingo.
 - Snapshot en Drive (`Gdrive:01-Trabajo/Portfolio/pulso-upch/`) y `drive.manifest`: no hecho.
-- Decisiones tomadas sin el autor: `docs/DECISIONES.md`.
+- Decisiones tomadas sin el autor: `docs/DECISIONES.md` (incluye mover PROMPT.md y BRIEF_V2.md a `docs/interno/`).

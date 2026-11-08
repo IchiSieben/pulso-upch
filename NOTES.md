@@ -1,6 +1,6 @@
 # NOTES — Pulso UPCH
 
-## 2026-11-07 · Giro a la versión de presentación (BRIEF_V2.md)
+## 2026-11-07 · Giro a la versión de presentación (docs/interno/BRIEF_V2.md)
 
 **Hecho.** Los 7 puntos del brief V2. Ver HANDOFF.md para el detalle y la verificación.
 
