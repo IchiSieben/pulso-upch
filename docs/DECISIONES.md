@@ -80,3 +80,18 @@ Formato: fecha · tarea · qué se eligió · por qué · qué se descartó · c
   - **Slides:** las cifras grandes van en el color del texto, no en granate (el granate
     es la marca, no el dato).
   - **Revertir:** `git revert` del commit de la fase (`fase-3`).
+- **2026-11-08 · Maratón, Fase 4 (arquitectura y piloto).** `docs/ARQUITECTURA_V3.md`.
+  - **Panel de Bienestar** (propuesto): solo agregados, con celdas de menos de 10 estudiantes
+    suprimidas. La tabla que une el código seudónimo con la persona no vive en el servidor.
+  - **Diseño del piloto:** pre/post con intención de tratar. Dentro de él, un A/B de la
+    mascota para los días 1 a 7.
+  - **Tamaño muestral**, con α = 0,05 y potencia del 80 %:
+    - SISCO pareado, d = 0,3 → 90 estudiantes, 150 si se pierde el 40 %.
+    - Consulta atendida del 5 % al 12 % → 248; del 5 % al 10 % → 435.
+    - Por eso se propone un piloto de unos 250, y se dice que es de factibilidad si el
+      efecto es menor.
+    - Reproducir: `python -c "from math import ceil,sqrt; za,zb=1.959964,0.841621; print(ceil(((za+zb)/0.3)**2+za**2/2))"`.
+  - **El 5 % de línea base es un supuesto [por verificar]** con Bienestar.
+  - **La versión visual va en la landing**, en las secciones "De la demo al piloto", "Un
+    proyecto para toda Cayetano" y "Hacia dónde va". Entró en el commit de la Fase 3
+    porque el agente de la landing trabajó con este documento ya escrito.
